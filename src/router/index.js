@@ -4,12 +4,18 @@ import HelloWorld from '@/components/HelloWorld'
 import BlogHome from '@/components/BlogHome'
 import BlogPost from '@/components/BlogPost'
 import FormCheck from '@/components/FormCheck'
+import Index from '@/components/Index'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      name: 'Index',
+      component: Index
+    },
     {
       path: '/hello/',
       name: 'HelloWorld',
