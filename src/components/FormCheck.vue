@@ -31,6 +31,15 @@
       >
     </p>
     <p>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        v-model="email"
+        type="text"
+        name="email"
+      >
+    </p>
+    <p>
       <label for="movie">Favorite Movie</label>
       <select
         id="movie"
@@ -56,15 +65,12 @@ export default {
       errors: [],
       name: null,
       age: null,
+      email: null,
       movie: null
     }
   },
   methods: {
     checkForm: function (e) {
-      if (this.name && this.age) {
-        return true
-      }
-
       this.errors = []
 
       if (!this.name) {
@@ -73,8 +79,21 @@ export default {
       if (!this.age) {
         this.errors.push('Age required.')
       }
+      if (!this.email) {
+        this.errors.push('Email required.')
+      } else if (!this.validateEmail(this.email)) {
+        this.errors.push('Email not validate.')
+      }
+
+      if (!this.errors.length) {
+        return true
+      }
 
       e.preventDefault()
+    },
+    validateEmail: function (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(email)
     }
   }
 }
