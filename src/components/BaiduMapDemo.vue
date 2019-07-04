@@ -1,15 +1,16 @@
 <template>
-  <baidu-map class="map" ak="bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy" :center="center" :zoom="zoom" @ready="handler">
+  <baidu-map class="bm-view" :center="center" :zoom="zoom" @ready="handler">
   </baidu-map>
 </template>
 
 <script>
-import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
+// import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
+
 export default {
   name: 'BaiduMapDemo',
-  components: {
-    BaiduMap
-  },
+  // components: {
+  //   BaiduMap
+  // },
   data () {
     return {
       center: {lng: 0, lat: 0},
@@ -28,7 +29,7 @@ export default {
 </script>
 
 <style scoped>
-  .map {
+  .bm-view {
     width: 100%;
     height: 400px;
   }

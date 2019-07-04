@@ -6,8 +6,18 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import BaiduMap from 'vue-baidu-map'
+
+Vue.use(BaiduMap, {
+  ak: 'bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy'
+})
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    'baidu-map': BaiduMap
+  }
 }
 </script>
 

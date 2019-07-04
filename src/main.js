@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import BaiduMap from 'vue-baidu-map'
 import 'bulma/css/bulma.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -15,8 +14,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
-
-Vue.use(BaiduMap, {
-  ak: 'bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy'
 })
