@@ -49,7 +49,7 @@ export default {
   name: 'Index',
   data () {
     return {
-      showNav: false
+      showNav: true
     }
   }
 }

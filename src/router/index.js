@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import BlogHome from '@/components/BlogHome'
 import BlogPost from '@/components/BlogPost'
 import FormCheck from '@/components/FormCheck'
+import BaiduMapDemo from '@/components/BaiduMapDemo'
 import Index from '@/components/Index'
 
 Vue.use(Router)
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/baidumap/',
+      name: 'BaiduMapDemo',
+      component: BaiduMapDemo
     },
     {
       path: '/hello/',
