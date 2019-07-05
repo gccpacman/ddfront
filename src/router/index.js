@@ -33,12 +33,12 @@ export default new Router({
       component: FormCheck
     },
     {
-      path: '/blog/',
+      path: '/butter/blog/',
       name: 'blog-home',
       component: BlogHome
     },
     {
-      path: '/blog/:slug',
+      path: '/butter/blog/:slug',
       name: 'blog-post',
       component: BlogPost
     }
