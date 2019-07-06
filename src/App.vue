@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <section class="hero is-fullheight is-primary is-bold">
+    <section class="hero is-fullheight is-bold">
       <!-- Hero header: will stick at the top -->
       <div class="hero-head">
-        <nav class="navbar">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
             <a class="navbar-item" href="/">
-              <img src="http://bulma.io/images/bulma-logo.png" alt="Logo">
+              <img src="http://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Logo">
             </a>
             <!--
         Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
@@ -21,23 +21,40 @@
         Using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
           <div class="navbar-menu" :class="{ 'is-active': showNav }">
-            <div class="navbar-end">
-              <a class="navbar-item" href="/about">
-                About
+            <div class="navbar-start">
+              <a class="navbar-item" href="/form/">
+                表格
               </a>
-              <a class="navbar-item" href="/path">
-                Path
+              <a class="navbar-item" href="/baidumap/">
+                百度地图
               </a>
-              <a class="navbar-item" href="/blog">
-                Blog
-              </a>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    About
+                  </a>
+                  <a class="navbar-item">
+                    Jobs
+                  </a>
+                  <a class="navbar-item">
+                    Contact
+                  </a>
+                  <hr class="navbar-divider">
+                  <a class="navbar-item">
+                    Report an issue
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
       </div>
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
-        <div class="container has-text-centered">
+        <div class="container">
           <router-view/>
         </div>
       </div>
@@ -48,6 +65,16 @@
 <script>
 import Vue from 'vue'
 import BaiduMap from 'vue-baidu-map'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import Table from 'buefy/dist/components/table'
+import Input from 'buefy/dist/components/input'
+// import 'bulma/css/bulma.css'
+
+Vue.use(Buefy)
+Vue.use(Table)
+Vue.use(Input)
 
 Vue.use(BaiduMap, {
   ak: 'bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy'
@@ -57,14 +84,20 @@ export default {
   name: 'App',
   components: {
     'baidu-map': BaiduMap
+  },
+  data () {
+    return {
+      showNav: true
+    }
   }
 }
 </script>
 
-<style>
-.navbar-item {
-  color:#4a4a4a !important;
-}
+<style lang="scss">
+
+// .navbar-item {
+//   color:#4a4a4a !important;
+// }
 /*#app {*/
 /*  font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
 /*  -webkit-font-smoothing: antialiased;*/

@@ -1,60 +1,47 @@
 <template>
-  <form
-    id="app"
-    @submit="checkForm"
-    action="https://vuejs.org/"
-    method="post"
-  >
-    <p v-if="errors.length">
-      <b>Please correct the following error(s):</b>
-      <ul>
-        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-      </ul>
-    </p>
-    <p>
-      <label for="name">Name</label>
-      <input
-        id="name"
-        v-model="name"
-        type="text"
-        name="name"
+  <section class="level">
+    <div class="level-left is-fullwidth has-text-left">
+      <form
+        id="app"
+        @submit="checkForm"
+        action="https://vuejs.org/"
+        method="post"
       >
-    </p>
-    <p>
-      <label for="age">Age</label>
-      <input
-        id="age"
-        v-model="age"
-        type="number"
-        name="age"
-        min="0"
-      >
-    </p>
-    <p>
-      <label for="email">Email</label>
-      <input
-        id="email"
-        v-model="email"
-        type="text"
-        name="email"
-      >
-    </p>
-    <p>
-      <label for="movie">Favorite Movie</label>
-      <select
-        id="movie"
-        v-model="movie"
-        name="movie"
-      >
-        <option>Star Wars</option>
-        <option>Vanilla Sky</option>
-        <option>Atomic Blonde</option>
-      </select>
-    </p>
-    <p>
-      <input type="submit" value="Submit">
-    </p>
-  </form>
+        <p v-if="errors.length">
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+          </ul>
+        </p>
+        <b-field label="Name">
+          <b-input v-model="name"></b-input>
+        </b-field>
+        <b-field label="Age">
+          <b-input v-model="age" type="number" min="0"></b-input>
+        </b-field>
+        <b-field label="Email">
+          <b-input v-model="email" type="email"></b-input>
+        </b-field>
+        <b-field label="Favorite Movie">
+          <b-select
+            id="movie"
+            v-model="movie"
+            name="movie"
+          >
+            <option>Star Wars</option>
+            <option>Vanilla Sky</option>
+            <option>Atomic Blonde</option>
+          </b-select>
+        </b-field>
+        <b-button type="submit" value="Submit">
+          Submit
+        </b-button>
+      </form>
+    </div>
+    <div class="level-right">
+
+    </div>
+  </section>
 </template>
 
 <script>
