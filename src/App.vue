@@ -70,11 +70,15 @@ import 'buefy/dist/buefy.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import Table from 'buefy/dist/components/table'
 import Input from 'buefy/dist/components/input'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 // import 'bulma/css/bulma.css'
 
 Vue.use(Buefy)
 Vue.use(Table)
 Vue.use(Input)
+
+Vue.use(VueAxios, axios)
 
 Vue.use(BaiduMap, {
   ak: 'bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy'
