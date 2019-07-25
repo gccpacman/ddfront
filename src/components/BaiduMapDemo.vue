@@ -32,9 +32,14 @@
         <div class="media-content">
           <div class="content">
             <baidu-map id="allmap" class="bm-view" center="上海市" :zoom="zoom" @ready="handler">
+              <bm-boundary name="兰州市" :strokeWeight="2" strokeColor="yellow"></bm-boundary>
+              <bm-boundary name="北海市" :strokeWeight="2" strokeColor="black"></bm-boundary>
+              <bm-boundary name="凉州区" :strokeWeight="2" strokeColor="black"></bm-boundary>
               <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-scale>
               <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
               <bm-overview-map anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :isOpen="true"></bm-overview-map>
+              <bm-marker position="" animation="BMAP_ANIMATION_BOUNCE">
+              </bm-marker>
               <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
                 <bm-label :content="content" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/>
               </bm-marker>
@@ -63,11 +68,13 @@ export default {
   data () {
     return {
       center: {lng: 121.44906, lat: 31.219978},
-      position: {lng: 121.44906, lat: 31.219978},
+      position: {lng: 122.44906, lat: 37.219978},
       content: '马路一',
       position2: {lng: 121.44106, lat: 31.216978},
       content2: '建筑二',
-      zoom: 14
+      location: '上海',
+      keyword: '马当路',
+      zoom: 5
     }
   },
   methods: {
