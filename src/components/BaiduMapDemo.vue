@@ -4,17 +4,34 @@
         <div class="level-left">
           <div class="level-item">
             <p class="subtitle is-5">
-              <strong>123</strong> posts
+              <strong></strong> 筛选地区
+            </p>
+          </div>
+          <div class="level-item">
+            <b-field>
+              <b-select placeholder="选择行政区（徐汇区，静安区...）" icon="earth">
+                <option
+                  v-for="option in shanghai_distrit_names"
+                  :value="option.id"
+                  :key="option.id">
+                  {{ option }}
+                </option>
+              </b-select>
+            </b-field>
+          </div>
+          <div class="level-item">
+            <p class="subtitle is-5">
+              <strong></strong> 搜索路名
             </p>
           </div>
           <div class="level-item">
             <div class="field has-addons">
               <p class="control">
-                <input class="input" type="text" placeholder="Find a post">
+                <input class="input" type="text" placeholder="寻找特殊路名">
               </p>
               <p class="control">
                 <button class="button">
-                  Search
+                  搜索
                 </button>
               </p>
             </div>
@@ -28,29 +45,38 @@
           <p class="level-item"><a class="button is-success">New</a></p>
         </div>
       </div>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              龙阳路
+            </h1>
+            <h2 class="subtitle">
+              根据《浦东新区地方志》，龙阳路与龙王庙有一段神奇的故事。原来，浦东花木镇下有个龙王庙村，建在浦建路和沪南公路边上。80年代，建了一条通往东海、途经花木镇的污水管道，在管道上方修建了一条公路。由于这条路是从龙王庙出发向东的，就称为“龙东路”。浦东开发后，随着南浦大桥建成，龙王庙向西的通桥道路也建成，被称为“龙阳路”，而向东的龙东路被拓宽，改名为“龙东大道”，一直延伸至海边，然后转弯通往浦东国际机场。
+            </h2>
+            <h1 class="title">
+              济南路
+            </h1>
+            <h2 class="subtitle">
+            </h2>
+          </div>
+        </div>
+      </section>
       <div class="media">
         <div class="media-content">
           <div class="content">
-            <baidu-map id="allmap" class="bm-view" center="上海市" :zoom="zoom" @ready="handler">
-              <bm-boundary name="兰州市" :strokeWeight="2" strokeColor="yellow"></bm-boundary>
-              <bm-boundary name="北海市" :strokeWeight="2" strokeColor="black"></bm-boundary>
-              <bm-boundary name="凉州区" :strokeWeight="2" strokeColor="black"></bm-boundary>
-              <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-scale>
+            <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
               <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
-              <bm-overview-map anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :isOpen="true"></bm-overview-map>
-              <bm-marker position="" animation="BMAP_ANIMATION_BOUNCE">
-              </bm-marker>
+              <!-- <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation> -->
+              <bm-boundary name="兰州市" :strokeWeight="1" strokeColor="blue" fillColor="blue" @clink="handleClick"></bm-boundary>
+              <bm-boundary name="北海市" :strokeWeight="1" strokeColor="blue" fillColor="blue" @clink="handleClick"></bm-boundary>
+              <bm-boundary name="凉州区" :strokeWeight="1" strokeColor="blue" fillColor="blue" @clink="handleClick"></bm-boundary>
+              <bm-boundary name="济南市" :strokeWeight="1" strokeColor="blue" fillColor="blue" @clink="handleClick"></bm-boundary>
               <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
                 <bm-label :content="content" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/>
               </bm-marker>
-              <bm-marker :position="position2" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
-                <bm-label :content="content2" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/>
-              </bm-marker>
             </baidu-map>
           </div>
-        </div>
-        <div class="level-right">
-          <p class="content"><strong>Hello world</strong></p>
         </div>
       </div>
   </div>
@@ -67,20 +93,26 @@ export default {
   // },
   data () {
     return {
-      center: {lng: 121.44906, lat: 31.219978},
+      center: '西安市',
       position: {lng: 122.44906, lat: 37.219978},
       content: '马路一',
       position2: {lng: 121.44106, lat: 31.216978},
       content2: '建筑二',
       location: '上海',
       keyword: '马当路',
-      zoom: 5
+      zoom: 5,
+      shanghai_distrit_names: ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区']
     }
   },
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
       console.log(GPS.PI)
+      console.log(this.shanghai_distrit_names)
+    },
+    handleClick () {
+      global.alert('Well done.')
+      console.log('it worked.')
     }
   }
 }
@@ -90,7 +122,7 @@ export default {
   /* body, html,#allmap {width: 100%;height: 100%;} */
   .bm-view {
     width: 100%;
-    height: 600px;
+    height: 500px;
     overflow: hidden;
     margin:0;
     padding: 5 5 5 5;
