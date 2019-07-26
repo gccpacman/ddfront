@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import BlogHome from '@/components/BlogHome'
 import BlogPost from '@/components/BlogPost'
 import FormCheck from '@/components/FormCheck'
+import Road from '@/components/Road'
 import BaiduMapDemo from '@/components/BaiduMapDemo'
 import Index from '@/components/Index'
 
@@ -16,6 +17,10 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/road/:id',
+      component: Road
     },
     {
       path: '/baidumap/',
