@@ -75,6 +75,7 @@
               <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
                 <bm-label :content="content" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/>
               </bm-marker>
+              <bm-polyline :path="polylinePath" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="updatePolylinePath"></bm-polyline>
             </baidu-map>
           </div>
         </div>
@@ -93,15 +94,21 @@ export default {
   // },
   data () {
     return {
-      center: '西安市',
+      center: '上海市',
       position: {lng: 122.44906, lat: 37.219978},
       content: '马路一',
       position2: {lng: 121.44106, lat: 31.216978},
       content2: '建筑二',
       location: '上海',
       keyword: '马当路',
-      zoom: 5,
-      shanghai_distrit_names: ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区']
+      zoom: 13,
+      shanghai_distrit_names: ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区'],
+      polylinePath: [
+        {lng: 121.3785742, lat: 31.16873194},
+        {lng: 121.3802783, lat: 31.16511556},
+        {lng: 121.3796283, lat: 31.16649417},
+        {lng: 121.3803486, lat: 31.16493833}
+      ]
     }
   },
   methods: {
