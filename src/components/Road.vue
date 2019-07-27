@@ -3,7 +3,9 @@
     <div>Road {{ $route.params.id }}</div>
     <div>
       <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
-<!--        <bm-polyline :path="polylinePath" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="updatePolylinePath"></bm-polyline>-->
+        <template v-for="(polylinePath, index) in polylinePathList">
+          <bm-polyline v-bind:item="polylinePath" v-bind:key="index" :path="polylinePath" stroke-color="blue" :stroke-opacity="1" :stroke-weight="5" :editing="false"></bm-polyline>
+        </template>
       </baidu-map>
     </div>
   </div>
@@ -15,23 +17,24 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
+      this.axios.get('http://127.0.0.1:8000/roads/' + this.$route.params.id).then((response) => {
+        console.log(response)
+        this.polylinePathList = response.data.polylines_bmap
+        console.log(this.polylinePathList)
+        console.log(this.polylinePathList[0])
+        this.center = this.polylinePathList[27][0]
+        console.log(this.center)
+      })
     }
   },
   created () {
     console.log('hello road')
-    this.axios.get('http://127.0.0.1:8000/roads/' + this.$route.params.id).then((response) => {
-      console.log(response)
-      this.polylinePath = response.polylines_bmap[0].split(';')
-      console.log(this.polylinePath)
-    }).catch((response) => {
-      console.log('error')
-    })
   },
   data () {
     return {
-      center: '上海市',
-      zoom: 13,
-      polylinePath: []
+      center: null,
+      zoom: 14,
+      polylinePathList: []
     }
   }
 }
