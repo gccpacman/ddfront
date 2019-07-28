@@ -45,23 +45,6 @@
           <p class="level-item"><a class="button is-success">New</a></p>
         </div>
       </div>
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              龙阳路
-            </h1>
-            <h2 class="subtitle">
-              根据《浦东新区地方志》，龙阳路与龙王庙有一段神奇的故事。原来，浦东花木镇下有个龙王庙村，建在浦建路和沪南公路边上。80年代，建了一条通往东海、途经花木镇的污水管道，在管道上方修建了一条公路。由于这条路是从龙王庙出发向东的，就称为“龙东路”。浦东开发后，随着南浦大桥建成，龙王庙向西的通桥道路也建成，被称为“龙阳路”，而向东的龙东路被拓宽，改名为“龙东大道”，一直延伸至海边，然后转弯通往浦东国际机场。
-            </h2>
-            <h1 class="title">
-              济南路
-            </h1>
-            <h2 class="subtitle">
-            </h2>
-          </div>
-        </div>
-      </section>
       <div class="media">
         <div class="media-content">
           <div class="content">

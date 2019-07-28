@@ -1,6 +1,20 @@
 <template>
   <div class='container'>
-    <div>Road {{ $route.params.id }}</div>
+    <div>
+      <p>Road {{ $route.params.id }}</p>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              {{ title }}
+            </h1>
+            <h2 class="subtitle">
+              {{ des2 }}
+            </h2>
+          </div>
+        </div>
+      </section>
+    </div>
     <div>
       <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
         <template v-for="(polylinePath, index) in polylinePathList">
@@ -17,12 +31,14 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
-      this.axios.get('http://127.0.0.1:8000/roads/' + this.$route.params.id).then((response) => {
+      this.axios.get('http://api.datadude.xyz/roads/' + this.$route.params.id).then((response) => {
         console.log(response)
         this.polylinePathList = response.data.polylines_bmap
         console.log(this.polylinePathList)
         console.log(this.polylinePathList[0])
-        this.center = this.polylinePathList[27][0]
+        this.center = response.data.center_bmap
+        this.title = response.data.name_chs
+        this.des2 = response.data.des2
         console.log(this.center)
       })
     }
@@ -33,8 +49,10 @@ export default {
   data () {
     return {
       center: null,
-      zoom: 14,
-      polylinePathList: []
+      zoom: 13,
+      polylinePathList: [],
+      title: '路名',
+      des2: '描述'
     }
   }
 }

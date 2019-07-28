@@ -26,7 +26,10 @@
                 表格
               </a>
               <a class="navbar-item" href="/baidumap/">
-                百度地图
+                行政区域
+              </a>
+              <a class="navbar-item" href="/road/2256/">
+                马路地图
               </a>
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
