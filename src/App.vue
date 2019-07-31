@@ -47,13 +47,13 @@
             <!--
         Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
-            <div class="navbar-item" v-show="showSearch">
+            <div class="navbar-item search-bar-container" v-show="showSearch">
               <b-field>
                 <b-input v-model="keyword" placeholder="路名，地名，建筑名..."></b-input>
               </b-field>
             </div>
-            <div class="navbar-item navbar-item-right" >
-              <button @click="clickSearch">
+            <div class="navbar-item search-button-container" >
+              <button @click="clickSearch" class="search-button">
                 <b-icon
                 pack="fas"
                 icon="search"
@@ -139,12 +139,25 @@ export default {
 // body {
 //   background-image: url("./assets/bg_index.jpg");
 // }
-.navbar-item-right {
+.search-bar-container {
+  width: 70%;
   margin-right: 0px;
+}
+.search-button-container {
+  display: block;
+  height: 3.25rem;
+  position: relative;
+  width: 3rem;
   margin-left: auto;
+  margin-right: 0px;
+  // float: right;
+}
+.search-button {
+  border-width: 0px;
+  background-color: #ffffff;
 }
 .navbar-burger-left {
-  margin-left: 0px;
+  margin-left: 0px!important;
 }
 .navbar-item {
   color:#4a4a4a !important;
