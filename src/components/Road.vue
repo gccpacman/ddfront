@@ -31,7 +31,7 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
-      this.axios.get(process.env.ROOT_API + '/roads/' + this.$route.params.id).then((response) => {
+      this.axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
         this.polylinePathList = response.data.polylines_bmap
         this.center = response.data.center_bmap
         this.title = response.data.name_chs
