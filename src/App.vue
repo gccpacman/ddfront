@@ -61,7 +61,7 @@
                 </b-icon>
               </button>
             </div>
-            <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav }">
+            <div class="navbar-burger navbar-burger-left" @click="showNav = !showNav"  :class="{ 'is-active': showNav }">
               <span></span>
               <span></span>
               <span></span>
@@ -129,20 +129,18 @@ export default {
         this.showSearch = !this.showSearch
       }
       console.log('search ok.' + this.keyword)
+      console.log(process.env.ROOT_API)
     }
   }
 }
 </script>
 
 <style lang="scss">
-#search-bar {
-  display: none;
-}
 .navbar-item-right {
   margin-right: 0px;
   margin-left: auto;
 }
-.navbar-burger {
+.navbar-burger-left {
   margin-left: 0px;
 }
 .navbar-item {

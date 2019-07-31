@@ -31,14 +31,14 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
-      this.axios.get('http://api.datadude.xyz/roads/' + this.$route.params.id).then((response) => {
-        console.log(response)
+      this.axios.get(process.env.ROOT_API + '/roads/' + this.$route.params.id).then((response) => {
         this.polylinePathList = response.data.polylines_bmap
-        console.log(this.polylinePathList)
-        console.log(this.polylinePathList[0])
         this.center = response.data.center_bmap
         this.title = response.data.name_chs
         this.des2 = response.data.des2
+        console.log(response)
+        console.log(this.polylinePathList)
+        console.log(this.polylinePathList[0])
         console.log(this.center)
       })
     }
