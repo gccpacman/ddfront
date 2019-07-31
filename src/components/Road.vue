@@ -23,7 +23,7 @@
         </template>
         <template v-for="arch in archList">
           <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false">
-            <bm-label :content="arch.name" :labelStyle="{color: 'black', fontSize : '12px', backgroundColor :'rgba(0,0,0,0)', border: '0px'}" :offset="{width: 0, height: 0}"/>
+            <bm-label :content="arch.name" :labelStyle="{color: 'black', fontSize : '10px', backgroundColor :'rgba(255,255,255,0.5)', border: '0px'}" :offset="{width: -20, height: 15}"/>
           </bm-marker>
         </template>
       </baidu-map>
@@ -68,7 +68,7 @@ export default {
   data () {
     return {
       center: null,
-      zoom: 17,
+      zoom: 16,
       polylinePathList: [],
       archList: [],
       title: '路名',
