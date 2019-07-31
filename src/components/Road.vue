@@ -17,8 +17,14 @@
     </div>
     <div>
       <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
+        <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
         <template v-for="(polylinePath, index) in polylinePathList">
           <bm-polyline v-bind:item="polylinePath" v-bind:key="index" :path="polylinePath" stroke-color="blue" :stroke-opacity="1" :stroke-weight="5" :editing="false"></bm-polyline>
+        </template>
+        <template v-for="arch in archList">
+          <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false">
+            <bm-label :content="arch.name" :labelStyle="{color: 'black', fontSize : '12px', backgroundColor :'rgba(0,0,0,0)', border: '0px'}" :offset="{width: 0, height: 0}"/>
+          </bm-marker>
         </template>
       </baidu-map>
     </div>
@@ -40,6 +46,19 @@ export default {
         console.log(this.polylinePathList)
         console.log(this.polylinePathList[0])
         console.log(this.center)
+        var archItems = response.data.road_architecture
+        if (archItems && archItems.length > 0) {
+          for (var i = 0; i < archItems.length; i++) {
+            this.archList.push({
+              'id': archItems._id,
+              'name': archItems[i].name_chs,
+              'position': {
+                'lng': archItems[i].longitude,
+                'lat': archItems[i].latitude
+              }
+            })
+          }
+        }
       })
     }
   },
@@ -49,8 +68,9 @@ export default {
   data () {
     return {
       center: null,
-      zoom: 13,
+      zoom: 17,
       polylinePathList: [],
+      archList: [],
       title: '路名',
       des2: '描述'
     }
@@ -61,10 +81,10 @@ export default {
 <style scoped>
   .bm-view {
     width: 100%;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
     margin:0;
-    padding: 5 5 5 5;
+    padding: 0 0 0 0;
     font-family:"微软雅黑";
   }
 </style>
