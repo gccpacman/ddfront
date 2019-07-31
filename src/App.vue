@@ -4,34 +4,21 @@
       <!-- Hero header: will stick at the top -->
       <div class="hero-head">
         <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-              <img src="http://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Logo">
-            </a>
-            <!--
-        Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
-        -->
-            <div class="navbar-burger" @click="showNav = !showNav" :class="{ 'is-active': showNav }">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
           <!--
         Using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
           <div class="navbar-menu" :class="{ 'is-active': showNav }">
             <div class="navbar-start">
-              <a class="navbar-item" href="/form/">
+              <!-- <a class="navbar-item" href="/form/">
                 表格
-              </a>
+              </a> -->
               <a class="navbar-item" href="/baidumap/">
                 行政区域
               </a>
               <a class="navbar-item" href="/road/2256/">
                 马路地图
               </a>
-              <div class="navbar-item has-dropdown is-hoverable">
+              <!-- <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                   More
                 </a>
@@ -50,7 +37,34 @@
                     Report an issue
                   </a>
                 </div>
-              </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="navbar-brand">
+            <!-- <a class="navbar-item" href="/">
+              <img src="http://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Logo">
+            </a> -->
+            <!--
+        Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
+        -->
+            <div class="navbar-item" v-show="showSearch">
+              <b-field>
+                <b-input v-model="keyword" placeholder="路名，地名，建筑名..."></b-input>
+              </b-field>
+            </div>
+            <div class="navbar-item navbar-item-right" >
+              <button @click="clickSearch">
+                <b-icon
+                pack="fas"
+                icon="search"
+                size="is-big">
+                </b-icon>
+              </button>
+            </div>
+            <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav }">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
           </div>
         </nav>
@@ -104,23 +118,42 @@ export default {
   },
   data () {
     return {
-      showNav: true
+      showNav: false,
+      showSearch: false,
+      keyword: ''
+    }
+  },
+  methods: {
+    clickSearch () {
+      if (!this.showSearch) {
+        this.showSearch = !this.showSearch
+      }
+      console.log('search ok.' + this.keyword)
     }
   }
 }
 </script>
 
 <style lang="scss">
-
-// .navbar-item {
-//   color:#4a4a4a !important;
-// }
-/*#app {*/
-/*  font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*  text-align: center;*/
-/*  color: #2c3e50;*/
-/*  margin-top: 60px;*/
-/*}*/
+#search-bar {
+  display: none;
+}
+.navbar-item-right {
+  margin-right: 0px;
+  margin-left: auto;
+}
+.navbar-burger {
+  margin-left: 0px;
+}
+.navbar-item {
+  color:#4a4a4a !important;
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 5px;
+}
 </style>
