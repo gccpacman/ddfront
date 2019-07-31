@@ -136,6 +136,9 @@ export default {
 </script>
 
 <style lang="scss">
+// body {
+//   background-image: url("./assets/bg_index.jpg");
+// }
 .navbar-item-right {
   margin-right: 0px;
   margin-left: auto;
