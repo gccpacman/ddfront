@@ -50,6 +50,20 @@
             <div class="navbar-item search-bar-container" v-show="showSearch">
               <b-field>
                 <b-autocomplete v-model="keyword_name" :data="filterdRoadData" placeholder="输入路名: e.g. 武康路" @select="option => selected = option">
+                  <template slot-scope="props">
+                    <div class="media">
+                      <div class="media-left">
+                          <img width="32" :src="`{{ props.option.img }}`">
+                      </div>
+                      <div class="media-content">
+                          {{ props.option.name_chs }}
+                          <br>
+                          <small>
+                            <b>{{ props.option.type }}</b>
+                          </small>
+                      </div>
+                    </div>
+                  </template>
                   <template slot="empty">没有结果...</template>
                 </b-autocomplete>
               </b-field>
@@ -131,10 +145,10 @@ export default {
     clickSearch () {
       if (!this.showSearch) {
         this.showSearch = !this.showSearch
-        this.axios.get(process.env.ROOT_API + '/roads/').then((response) => {
-          var roadList = response.data.results
+        this.axios.get(process.env.ROOT_API + '/filter/road/name').then((response) => {
+          var roadList = response.data
           for (var i = 0; i < roadList.length; i++) {
-            this.keyword_items.push(roadList[i].name_chs)
+            this.keyword_items.push(roadList[i])
           }
         })
       }
@@ -145,7 +159,7 @@ export default {
   computed: {
     filterdRoadData () {
       return this.keyword_items.filter((option) => {
-        return option
+        return option.name_chs
           .toString()
           .indexOf(this.keyword_name) >= 0
       })
