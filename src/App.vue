@@ -15,7 +15,7 @@
               <a class="navbar-item" href="/baidumap/">
                 行政区域
               </a>
-              <a class="navbar-item" href="/road/2256/">
+              <a class="navbar-item" href="/road/1312/">
                 马路地图
               </a>
               <!-- <div class="navbar-item has-dropdown is-hoverable">
@@ -49,7 +49,9 @@
         -->
             <div class="navbar-item search-bar-container" v-show="showSearch">
               <b-field>
-                <b-input v-model="keyword" placeholder="路名，地名，建筑名..."></b-input>
+                <b-autocomplete v-model="keyword_name" :data="filterdRoadData" placeholder="输入路名: e.g. 武康路" @select="option => selected = option">
+                  <template slot="empty">没有结果...</template>
+                </b-autocomplete>
               </b-field>
             </div>
             <div class="navbar-item search-button-container" >
@@ -120,16 +122,33 @@ export default {
     return {
       showNav: false,
       showSearch: false,
-      keyword: ''
+      keyword_items: [],
+      keyword_name: '',
+      keyword_selected: null
     }
   },
   methods: {
     clickSearch () {
       if (!this.showSearch) {
         this.showSearch = !this.showSearch
+        this.axios.get(process.env.ROOT_API + '/roads/').then((response) => {
+          var roadList = response.data.results
+          for (var i = 0; i < roadList.length; i++) {
+            this.keyword_items.push(roadList[i].name_chs)
+          }
+        })
       }
-      console.log('search ok.' + this.keyword)
+      console.log('search ok.' + this.keyword_name)
       console.log(process.env.ROOT_API)
+    }
+  },
+  computed: {
+    filterdRoadData () {
+      return this.keyword_items.filter((option) => {
+        return option
+          .toString()
+          .indexOf(this.keyword_name) >= 0
+      })
     }
   }
 }

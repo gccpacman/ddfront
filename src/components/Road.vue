@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <section>
     <div>
       <p>Road {{ $route.params.id }}</p>
       <section class="hero">
@@ -15,7 +15,7 @@
         </div>
       </section>
     </div>
-    <div>
+    <div class="bmap-container is-gapless">
       <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
         <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
         <template v-for="(polylinePath, index) in polylinePathList">
@@ -28,7 +28,7 @@
         </template>
       </baidu-map>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -68,7 +68,7 @@ export default {
   data () {
     return {
       center: null,
-      zoom: 16,
+      zoom: 14,
       polylinePathList: [],
       archList: [],
       title: '路名',
@@ -79,6 +79,10 @@ export default {
 </script>
 
 <style scoped>
+  .bmap-container {
+    flex: none;
+    width: 100%;
+  }
   .bm-view {
     width: 100%;
     height: 400px;

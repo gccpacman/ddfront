@@ -19,7 +19,7 @@
               </b-select>
             </b-field>
           </div>
-          <div class="level-item">
+          <!-- <div class="level-item">
             <p class="subtitle is-5">
               <strong></strong> 搜索路名
             </p>
@@ -35,15 +35,15 @@
                 </button>
               </p>
             </div>
-          </div>
+          </div> -->
         </div>
-        <div class="level-right">
+        <!-- <div class="level-right">
           <p class="level-item"><strong>All</strong></p>
           <p class="level-item"><a>Published</a></p>
           <p class="level-item"><a>Drafts</a></p>
           <p class="level-item"><a>Deleted</a></p>
           <p class="level-item"><a class="button is-success">New</a></p>
-        </div>
+        </div> -->
       </div>
       <div class="media">
         <div class="media-content">
@@ -58,7 +58,7 @@
               <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
                 <bm-label :content="content" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/>
               </bm-marker>
-              <bm-polyline :path="polylinePath" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="updatePolylinePath"></bm-polyline>
+              <!-- <bm-polyline :path="polylinePath" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="updatePolylinePath"></bm-polyline> -->
             </baidu-map>
           </div>
         </div>
