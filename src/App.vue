@@ -155,8 +155,8 @@ export default {
   },
   methods: {
     clickSearch () {
-      if (!this.showSearch) {
-        this.showSearch = true
+      this.showSearch = true
+      if (this.keyword_items.length === 0) {
         for (var i = 0; i < this.shanghai_distrit_names.length; i++) {
           this.keyword_items.push({
             'name': this.shanghai_distrit_names[i],
