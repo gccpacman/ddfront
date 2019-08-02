@@ -9,6 +9,7 @@ import BaiduMapDemo from '@/components/BaiduMapDemo'
 import Index from '@/components/Index'
 import EChartsDemo from '@/components/EChartsDemo'
 import EChartsMapDemo from '@/components/EChartsMapDemo'
+import EChartsRoadDemo from '@/components/EChartsRoadDemo'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/demo/echartsmap/',
       name: 'EChartsMapDemo',
       component: EChartsMapDemo
+    },
+    {
+      path: '/demo/echartsroad/',
+      name: 'EChartsRoadDemo',
+      component: EChartsRoadDemo
     },
     {
       path: '/demo/hello/',

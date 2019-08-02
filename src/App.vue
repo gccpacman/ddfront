@@ -24,8 +24,11 @@
               <a class="navbar-item" href="/demo/echarts/">
                 桑基图demo
               </a>
+              <a class="navbar-item" href="/demo/echartsroad/">
+                echarts马路demo
+              </a>
               <a class="navbar-item" href="/road/1312/">
-                马路地图demo
+                百度地图马路demo
               </a>
               <!-- <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
