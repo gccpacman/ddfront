@@ -15,10 +15,13 @@
               <a class="navbar-item" href="/">
                 主页
               </a>
-              <a class="navbar-item" href="/baidumap/">
-                行政区域demo
+              <a class="navbar-item" href="/demo/baidumap/">
+                百度地图行政区域demo
               </a>
-              <a class="navbar-item" href="/echarts/">
+              <a class="navbar-item" href="/demo/echartsmap/">
+                echarts行政区域demo
+              </a>
+              <a class="navbar-item" href="/demo/echarts/">
                 桑基图demo
               </a>
               <a class="navbar-item" href="/road/1312/">

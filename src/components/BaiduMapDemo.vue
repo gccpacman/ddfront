@@ -77,7 +77,7 @@ export default {
   // },
   data () {
     return {
-      center: '上海市',
+      center: '西安市',
       position: {lng: 122.44906, lat: 37.219978},
       content: '马路一',
       position2: {lng: 121.44106, lat: 31.216978},
@@ -111,7 +111,7 @@ export default {
   /* body, html,#allmap {width: 100%;height: 100%;} */
   .bm-view {
     width: 100%;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
     margin:0;
     padding: 5 5 5 5;

@@ -8,6 +8,7 @@ import Road from '@/components/Road'
 import BaiduMapDemo from '@/components/BaiduMapDemo'
 import Index from '@/components/Index'
 import EChartsDemo from '@/components/EChartsDemo'
+import EChartsMapDemo from '@/components/EChartsMapDemo'
 
 Vue.use(Router)
 
@@ -24,22 +25,27 @@ export default new Router({
       component: Road
     },
     {
-      path: '/baidumap/',
+      path: '/demo/baidumap/',
       name: 'BaiduMapDemo',
       component: BaiduMapDemo
     },
     {
-      path: '/echarts/',
+      path: '/demo/echarts/',
       name: 'EChartsDemo',
       component: EChartsDemo
     },
     {
-      path: '/hello/',
+      path: '/demo/echartsmap/',
+      name: 'EChartsMapDemo',
+      component: EChartsMapDemo
+    },
+    {
+      path: '/demo/hello/',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
-      path: '/form/',
+      path: '/demo/form/',
       name: 'form-check',
       component: FormCheck
     },
