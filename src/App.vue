@@ -70,7 +70,7 @@
                 </template>
                 <template slot="empty">没有结果...</template>
               </b-autocomplete>
-              <b-button>
+              <b-button @click="keywordSearch">
                 <b-icon
                 pack="fas"
                 icon="search"
@@ -86,7 +86,7 @@
               </b-button>
             </div>
             <div class="navbar-item search-button-container">
-              <b-button @click="clickSearch" class="search-button" v-show="!showSearch" >
+              <b-button @click="clickSearchIcon" class="search-button" v-show="!showSearch" >
                 <b-icon
                 pack="fas"
                 icon="search"
@@ -156,48 +156,61 @@ export default {
     return {
       showNav: false,
       showSearch: false,
-      keyword_items: [],
       keyword_name: '',
+      keyword_icon: '',
       keyword_selected: null,
-      shanghai_distrit_names: ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区']
+      sh_distrit_list: [],
+      sh_road_list: [],
+      sh_architecture_list: []
     }
   },
   methods: {
-    clickSearch () {
+    keywordSearch () {
+      console.log(this.keyword_name)
+      console.log(this.$router)
+      this.$router.push({'name': 'BaiduMapDemo', 'query': {'name': this.keyword_name}})
+    },
+    clickSearchIcon () {
       this.showSearch = true
-      if (this.keyword_items.length === 0) {
-        for (var i = 0; i < this.shanghai_distrit_names.length; i++) {
-          this.keyword_items.push({
-            'name': this.shanghai_distrit_names[i],
+      if (this.sh_distrit_list.length === 0) {
+        var distritList = ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区']
+        for (var i = 0; i < distritList.length; i++) {
+          this.sh_distrit_list.push({
+            'name': distritList[i],
             'type': 'place'
           })
         }
+      }
+      if (this.sh_road_list.length === 0) {
         this.axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
           var roadList = response.data
           for (var i = 0; i < roadList.length; i++) {
-            this.keyword_items.push({
+            this.sh_road_list.push({
               'name': roadList[i],
               'type': 'road'
             })
           }
         })
+      }
+      if (this.sh_architecture_list.length === 0) {
         this.axios.get(process.env.ROOT_API + '/keyword/architecture').then((response) => {
           var architectureList = response.data
           for (var i = 0; i < architectureList.length; i++) {
-            this.keyword_items.push({
+            this.sh_architecture_list.push({
               'name': architectureList[i],
               'type': 'architecture'
             })
           }
         })
       }
-      console.log('search ok.' + this.keyword_name)
-      console.log(process.env.ROOT_API)
+      // console.log('search ok.' + this.keyword_name)
+      // console.log(process.env.ROOT_API)
     }
   },
   computed: {
     filterdRoadData () {
-      return this.keyword_items.filter((option) => {
+      var keywordItems = this.sh_distrit_list.concat(this.sh_road_list, this.sh_architecture_list)
+      return keywordItems.filter((option) => {
         return option.name
           .toString()
           .indexOf(this.keyword_name) >= 0
