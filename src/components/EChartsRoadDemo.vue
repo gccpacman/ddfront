@@ -171,8 +171,8 @@ var bmapOptions = {
       lineStyle: {
         normal: {
           color: 'yellow',
-          opacity: 0.6,
-          width: 3
+          opacity: 1,
+          width: 1
         }
       },
       polyline: true,
