@@ -126,7 +126,11 @@ import Table from 'buefy/dist/components/table'
 import Input from 'buefy/dist/components/input'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import ECharts from 'vue-echarts/components/ECharts'
+import 'echarts/lib/chart/bar'
+
 // import 'bulma/css/bulma.css'
+Vue.component('v-chart', ECharts)
 
 Vue.use(Buefy)
 Vue.use(Table)

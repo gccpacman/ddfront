@@ -7,6 +7,7 @@ import FormCheck from '@/components/FormCheck'
 import Road from '@/components/Road'
 import BaiduMapDemo from '@/components/BaiduMapDemo'
 import Index from '@/components/Index'
+import EChartsDemo from '@/components/EChartsDemo'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/baidumap/',
       name: 'BaiduMapDemo',
       component: BaiduMapDemo
+    },
+    {
+      path: '/echarts/',
+      name: 'EChartsDemo',
+      component: EChartsDemo
     },
     {
       path: '/hello/',
