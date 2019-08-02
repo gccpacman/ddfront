@@ -12,11 +12,17 @@
               <!-- <a class="navbar-item" href="/form/">
                 表格
               </a> -->
+              <a class="navbar-item" href="/">
+                主页
+              </a>
               <a class="navbar-item" href="/baidumap/">
-                行政区域
+                行政区域demo
+              </a>
+              <a class="navbar-item" href="/echarts/">
+                桑基图demo
               </a>
               <a class="navbar-item" href="/road/1312/">
-                马路地图
+                马路地图demo
               </a>
               <!-- <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -106,9 +112,8 @@
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            <strong>@2018-2019</strong>上海图书馆开放数据竞赛作品<br/>
+            <small>ICP证：<a target="_blank" href="http://www.miitbeian.gov.cn">浙ICP备19022358号-1</a></small>
           </p>
         </div>
       </footer>
