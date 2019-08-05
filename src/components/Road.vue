@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'Index',
+  name: 'Road',
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)

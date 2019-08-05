@@ -5,6 +5,7 @@ import BlogHome from '@/components/BlogHome'
 import BlogPost from '@/components/BlogPost'
 import FormCheck from '@/components/FormCheck'
 import Road from '@/components/Road'
+import Architecture from '@/components/Architecture'
 import BaiduMapDemo from '@/components/BaiduMapDemo'
 import Index from '@/components/Index'
 import EChartsDemo from '@/components/EChartsDemo'
@@ -24,6 +25,10 @@ export default new Router({
     {
       path: '/road/:id',
       component: Road
+    },
+    {
+      path: '/architecture/:id',
+      component: Architecture
     },
     {
       path: '/demo/baidumap/',
