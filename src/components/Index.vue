@@ -31,16 +31,11 @@
 export default {
   name: 'Index',
   methods: {
-    getPosts () {
-      console.log('hello world')
-    }
   },
   created () {
-    this.getPosts()
   },
   data () {
     return {
-      showNav: true
     }
   }
 }

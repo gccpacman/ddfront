@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <section class="hero is-fullheight is-bold">
+    <section class="hero is-bold">
       <!-- Hero header: will stick at the top -->
       <div class="hero-head">
         <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -59,48 +59,37 @@
             <!--
         Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
-            <div class="navbar-item search-bar-container" v-show="showSearch">
-              <b-autocomplete class="search-field-container" field="name" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路" @select="option => selected = option">
-                <template slot-scope="props">
-                  <div class="media">
-                    <!-- <div class="media-left">
-                        <img width="32" :src="`{{ props.option.img }}`">
-                    </div> -->
-                    <div class="media-content">
-                      <b-icon v-if="props.option.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>
-                      <b-icon v-else-if="props.option.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>
-                      <b-icon v-else-if="props.option.type==='place'" pack="fas" icon="map-marker" size="is-small"></b-icon>
-                      <b>{{ props.option.name }}</b>
-                    </div>
-                  </div>
-                </template>
-                <template slot="empty">没有结果...</template>
-              </b-autocomplete>
-              <b-button @click="keywordSearch">
-                <b-icon
-                pack="fas"
-                icon="search"
-                size="is-big">
-                </b-icon>
-              </b-button>
-              <b-button @click="showSearch = false">
-                <b-icon
-                pack="fas"
-                icon="window-close"
-                size="is-big">
-                </b-icon>
-              </b-button>
+            <div class="navbar-item search-button-container" v-if="!hideSearchNav">
+              <div class="field has-addons">
+                <p class="control">
+                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路" @select="option => selected = option">
+                    <template slot-scope="props">
+                      <div class="media">
+                        <div class="media-left">
+                          <b-icon v-if="props.option.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>
+                          <b-icon v-else-if="props.option.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>
+                          <b-icon v-else-if="props.option.type==='place'" pack="fas" icon="map-marker" size="is-small"></b-icon>
+                        </div>
+                        <div class="media-content">
+                          <b>{{ props.option.name }}</b>
+                        </div>
+                      </div>
+                    </template>
+                    <template slot="empty">没有结果...</template>
+                  </b-autocomplete>
+                </p>
+                <p class="control">
+                  <b-button @click="search">
+                    <b-icon
+                    pack="fas"
+                    icon="search"
+                    size="is-big">
+                    </b-icon>
+                  </b-button>
+                </p>
+              </div>
             </div>
-            <div class="navbar-item search-button-container">
-              <b-button @click="clickSearchIcon" class="search-button" v-show="!showSearch" >
-                <b-icon
-                pack="fas"
-                icon="search"
-                size="is-big">
-                </b-icon>
-              </b-button>
-            </div>
-            <div class="navbar-burger navbar-burger-left" @click="showNav = !showNav"  :class="{ 'is-active': showNav }">
+            <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav,  'navbar-burger-left': !hideSearchNav }">
               <span></span>
               <span></span>
               <span></span>
@@ -114,7 +103,6 @@
           <router-view/>
         </div>
       </div>
-
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
@@ -166,46 +154,36 @@ export default {
     }
   },
   methods: {
-    keywordSearch () {
-      console.log(this.keyword_name)
-      console.log(this.$router)
-      this.$router.push({'name': 'BaiduMapDemo', 'query': {'name': this.keyword_name}})
-    },
-    clickSearchIcon () {
-      this.showSearch = true
-      if (this.sh_distrit_list.length === 0) {
-        var distritList = ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区']
-        for (var i = 0; i < distritList.length; i++) {
-          this.sh_distrit_list.push({
-            'name': distritList[i],
-            'type': 'place'
+    search () {
+      if (!this.showSearch) {
+        this.showSearch = true
+        if (this.sh_road_list.length === 0) {
+          this.axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
+            var roadList = response.data
+            for (var i = 0; i < roadList.length; i++) {
+              this.sh_road_list.push({
+                'name': roadList[i],
+                'type': 'road'
+              })
+            }
           })
         }
+        if (this.sh_architecture_list.length === 0) {
+          this.axios.get(process.env.ROOT_API + '/keyword/architecture').then((response) => {
+            var architectureList = response.data
+            for (var i = 0; i < architectureList.length; i++) {
+              this.sh_architecture_list.push({
+                'name': architectureList[i],
+                'type': 'architecture'
+              })
+            }
+          })
+        }
+      } else {
+        console.log(this.keyword_name)
+        console.log(this.$router)
+        this.$router.push({'name': 'Search', 'query': {'keyword': this.keyword_name}})
       }
-      if (this.sh_road_list.length === 0) {
-        this.axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
-          var roadList = response.data
-          for (var i = 0; i < roadList.length; i++) {
-            this.sh_road_list.push({
-              'name': roadList[i],
-              'type': 'road'
-            })
-          }
-        })
-      }
-      if (this.sh_architecture_list.length === 0) {
-        this.axios.get(process.env.ROOT_API + '/keyword/architecture').then((response) => {
-          var architectureList = response.data
-          for (var i = 0; i < architectureList.length; i++) {
-            this.sh_architecture_list.push({
-              'name': architectureList[i],
-              'type': 'architecture'
-            })
-          }
-        })
-      }
-      // console.log('search ok.' + this.keyword_name)
-      // console.log(process.env.ROOT_API)
     }
   },
   computed: {
@@ -218,6 +196,13 @@ export default {
       }).filter((option, idx) => {
         return idx < 20
       })
+    },
+    hideSearchNav () {
+      if (this.$route.name === 'Search') {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
@@ -227,18 +212,12 @@ export default {
 // body {
 //   background-image: url("./assets/bg_index.jpg");
 // }
-.search-bar-container {
-  width: 100%;
-  margin-right: 0px;
-}
-.search-field-container {
-  width: 80%
-}
+
 .search-button-container {
   display: block;
-  height: 3.25rem;
   position: relative;
-  width: 3rem;
+  // height: 3.25rem;
+  // width: 3rem;
   margin-left: auto;
   margin-right: 0px;
   // float: right;

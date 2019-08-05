@@ -11,6 +11,7 @@ import Index from '@/components/Index'
 import EChartsDemo from '@/components/EChartsDemo'
 import EChartsMapDemo from '@/components/EChartsMapDemo'
 import EChartsRoadDemo from '@/components/EChartsRoadDemo'
+import SearchResult from '@/components/SearchResult'
 
 Vue.use(Router)
 
@@ -23,11 +24,18 @@ export default new Router({
       component: Index
     },
     {
+      path: '/search/',
+      name: 'Search',
+      component: SearchResult
+    },
+    {
       path: '/road/:id',
+      name: 'Road',
       component: Road
     },
     {
       path: '/architecture/:id',
+      name: 'Architecture',
       component: Architecture
     },
     {
