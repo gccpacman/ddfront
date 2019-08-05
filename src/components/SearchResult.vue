@@ -9,7 +9,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong><a href="#">{{ searchItem.name }}</a></strong> <small> {{ searchItem.place_name }}</small>
+                <strong><a :href="searchItem.link">{{ searchItem.name }}</a></strong> <small> {{ searchItem.place_name }}</small>
                 <br>
                 <small> {{ searchItem.des2 }} </small>
               </p>
@@ -44,13 +44,15 @@ export default {
           'name': road.name_chs,
           'place_name': road.place_name,
           'des2': des2,
-          'type': 'road'
+          'type': 'road',
+          'link': 'road/' + road._id
         })
       }
     })
   },
   data () {
     return {
+      rootApi: process.env.ROOT_API,
       searchItemList: []
     }
   }
