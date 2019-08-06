@@ -15,19 +15,19 @@
               <a class="navbar-item" href="/">
                 主页
               </a>
-              <a class="navbar-item" href="/demo/baidumap/">
+              <a class="navbar-item" href="/demo/baidumap">
                 百度地图行政区域demo
               </a>
-              <a class="navbar-item" href="/demo/echartsmap/">
+              <a class="navbar-item" href="/demo/echartsmap">
                 echarts行政区域demo
               </a>
-              <a class="navbar-item" href="/demo/echarts/">
+              <a class="navbar-item" href="/demo/echarts">
                 桑基图demo
               </a>
-              <a class="navbar-item" href="/demo/echartsroad/">
+              <a class="navbar-item" href="/demo/echartsroad">
                 echarts马路demo
               </a>
-              <a class="navbar-item" href="/road/1312/">
+              <a class="navbar-item" href="/road/1312">
                 百度地图马路demo
               </a>
               <!-- <div class="navbar-item has-dropdown is-hoverable">
@@ -154,20 +154,17 @@ export default {
     }
   },
   methods: {
-    search () {
-      if (!this.showSearch) {
-        this.showSearch = true
-        if (this.sh_road_list.length === 0) {
-          this.axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
-            var roadList = response.data
-            for (var i = 0; i < roadList.length; i++) {
-              this.sh_road_list.push({
-                'name': roadList[i],
-                'type': 'road'
-              })
-            }
-          })
-        }
+    getAutocomplateData () {
+      if (this.sh_road_list.length === 0) {
+        this.axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
+          var roadList = response.data
+          for (var i = 0; i < roadList.length; i++) {
+            this.sh_road_list.push({
+              'name': roadList[i],
+              'type': 'road'
+            })
+          }
+        })
         if (this.sh_architecture_list.length === 0) {
           this.axios.get(process.env.ROOT_API + '/keyword/architecture').then((response) => {
             var architectureList = response.data
@@ -179,6 +176,12 @@ export default {
             }
           })
         }
+      }
+    },
+    search () {
+      if (!this.showSearch) {
+        this.showSearch = true
+        this.getAutocomplateData()
       } else {
         console.log(this.keyword_name)
         console.log(this.$router)

@@ -24,7 +24,7 @@ export default new Router({
       component: Index
     },
     {
-      path: '/search/',
+      path: '/search',
       name: 'Search',
       component: SearchResult
     },
@@ -39,37 +39,37 @@ export default new Router({
       component: Architecture
     },
     {
-      path: '/demo/baidumap/',
+      path: '/demo/baidumap',
       name: 'BaiduMapDemo',
       component: BaiduMapDemo
     },
     {
-      path: '/demo/echarts/',
+      path: '/demo/echarts',
       name: 'EChartsDemo',
       component: EChartsDemo
     },
     {
-      path: '/demo/echartsmap/',
+      path: '/demo/echartsmap',
       name: 'EChartsMapDemo',
       component: EChartsMapDemo
     },
     {
-      path: '/demo/echartsroad/',
+      path: '/demo/echartsroad',
       name: 'EChartsRoadDemo',
       component: EChartsRoadDemo
     },
     {
-      path: '/demo/hello/',
+      path: '/demo/hello',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
-      path: '/demo/form/',
+      path: '/demo/form',
       name: 'form-check',
       component: FormCheck
     },
     {
-      path: '/butter/blog/',
+      path: '/butter/blogs',
       name: 'blog-home',
       component: BlogHome
     },
