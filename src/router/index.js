@@ -77,6 +77,10 @@ export default new Router({
       path: '/butter/blog/:slug',
       name: 'blog-post',
       component: BlogPost
+    },
+    {
+      path: '*',
+      component: Index
     }
   ]
 })

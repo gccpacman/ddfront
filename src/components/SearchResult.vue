@@ -40,12 +40,13 @@
       <template v-for="(searchItem, idx) in searchItemList">
         <article class="media" v-bind:item="searchItem" v-bind:key="idx">
           <div class="media-left">
-            <b-icon pack="fas" icon="road" size="is-small"></b-icon>
+            <b-icon v-if="searchItem.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>
+            <b-icon v-else-if="searchItem.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>
           </div>
           <div class="media-content">
             <div class="content">
-              <p>
-                <strong><a :href="searchItem.link">{{ searchItem.name }}</a></strong> <small> {{ searchItem.place_name }}</small>
+              <p @click='clickLink(searchItem.type, searchItem.id)'>
+                <strong>{{ searchItem.name }}</strong> <small> {{ searchItem.place_name }}</small>
                 <br>
                 <small> {{ searchItem.des2 }} </small>
               </p>
@@ -85,7 +86,11 @@ export default {
         }
       }
     },
+    clickLink (itemType, itemId) {
+      this.$router.push('/' + itemType + '/' + itemId)
+    },
     search () {
+      this.searchItemList = []
       if (this.keyword_name) {
         if (this.keyword_type_group.includes('road')) {
           this.axios.get(process.env.ROOT_API + '/roads/', {
@@ -95,7 +100,6 @@ export default {
           }).then((response) => {
             console.log(response.data)
             var roadList = response.data.results
-            this.searchItemList = []
             for (var i = 0; i < roadList.length; i++) {
               var roadItem = roadList[i]
               var roadDescription = ''
@@ -110,7 +114,7 @@ export default {
                 'place_name': roadItem.place_name,
                 'des2': roadDescription,
                 'type': 'road',
-                'link': 'road/' + roadItem._id
+                'id': roadItem._id
               })
             }
           })
@@ -123,7 +127,6 @@ export default {
           }).then((response) => {
             console.log(response.data)
             var architectureList = response.data.results
-            this.searchItemList = []
             for (var i = 0; i < architectureList.length; i++) {
               var architectureItem = architectureList[i]
               var architectureDescription = ''
@@ -138,7 +141,7 @@ export default {
                 'place_name': architectureItem.place_name,
                 'des2': architectureDescription,
                 'type': 'architecture',
-                'link': 'architecture/' + architectureItem._id
+                'id': architectureItem._id
               })
             }
           })
