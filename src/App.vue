@@ -163,7 +163,6 @@ export default {
       showSearch: true,
       keyword_name: '',
       keyword_icon: '',
-      keyword_selected: null,
       sh_distrit_list: [],
       sh_road_list: [],
       sh_architecture_list: []
