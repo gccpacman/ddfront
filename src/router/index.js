@@ -12,6 +12,7 @@ import EChartsDemo from '@/components/EChartsDemo'
 import EChartsMapDemo from '@/components/EChartsMapDemo'
 import EChartsRoadDemo from '@/components/EChartsRoadDemo'
 import SearchResult from '@/components/SearchResult'
+import ArchitectureMap from '@/components/ArchitectureMap'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/search',
       name: 'Search',
       component: SearchResult
+    },
+    {
+      path: '/architectures',
+      name: 'ArchitecuteMap',
+      component: ArchitectureMap
     },
     {
       path: '/road/:id',
