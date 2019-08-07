@@ -27,9 +27,8 @@
             <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
               <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
               <template v-for="arch in archList">
-                <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false">
-                  <bm-label :content="arch.name" :labelStyle="{color: 'black', fontSize : '7px', backgroundColor :'rgba(255,255,255,0.3)', border: '1px'}" :offset="{width: -20, height: 10}"/>
-                </bm-marker>
+                <bm-boundary v-bind:item="arch" v-bind:key="arch.id" :name="arch.related_place" :strokeWeight="1" strokeColor="blue" fillColor="blue">
+                </bm-boundary>
               </template>
             </baidu-map>
           </div>
@@ -41,12 +40,13 @@
 <script>
 
 export default {
-  name: 'ArchitectureMap',
+  name: 'RelatedPlaceMap',
   data () {
     return {
-      zoom: 13,
-      place_name: '徐汇',
-      shanghai_distrit_names: ['普陀', '静安', '杨浦', '黄浦', '南汇', '嘉定', '徐汇', '奉贤', '闸北', '卢湾', '长宁', '闵行', '青浦', '金山', '宝山', '虹口', '浦东'],
+      center: '西安市',
+      zoom: 5,
+      place_name: '徐汇区',
+      shanghai_distrit_names: ['普陀区', '静安区', '杨浦区', '黄浦区', '南汇区', '嘉定区', '徐汇区', '奉贤区', '闸北区', '卢湾区', '长宁区', '闵行区', '青浦区', '金山区', '宝山区', '虹口区', '浦东新区'],
       archList: []
     }
   },
@@ -60,7 +60,7 @@ export default {
       this.reloadArch()
     },
     reloadArch () {
-      this.axios.get(process.env.ROOT_API + '/architecture/positions/', {
+      this.axios.get(process.env.ROOT_API + '/road/relatedplaces/', {
         params: {
           place_name: this.place_name
         }
@@ -73,9 +73,6 @@ export default {
     }
   },
   computed: {
-    center () {
-      return '上海市' + this.place_name
-    }
   }
 }
 </script>

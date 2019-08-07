@@ -37,18 +37,33 @@
       </b-field>
     </div>
     <div class="search-result-container">
-      <template v-for="(searchItem, idx) in searchItemList">
-        <article class="media" v-bind:item="searchItem" v-bind:key="idx">
+      <template v-for="roadItem in roadItemList">
+        <article class="media" v-bind:item="roadItem" v-bind:key="roadItem.id">
           <div class="media-left">
-            <b-icon v-if="searchItem.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>
-            <b-icon v-else-if="searchItem.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>
+            <b-icon pack="fas" icon="road" size="is-small"></b-icon>
           </div>
           <div class="media-content">
             <div class="content">
-              <p @click='clickLink(searchItem.type, searchItem.id)'>
-                <strong>{{ searchItem.name }}</strong> <small> {{ searchItem.place_name }}</small>
+              <p @click='clickLink(roadItem.type, roadItem.id)'>
+                <strong>{{ roadItem.name }}</strong> <small> {{ roadItem.place_name }}</small>
                 <br>
-                <small> {{ searchItem.des2 }} </small>
+                <small> {{ roadItem.des2 }} </small>
+              </p>
+            </div>
+          </div>
+        </article>
+      </template>
+      <template v-for="archItem in archItemList">
+        <article class="media" v-bind:item="archItem" v-bind:key="archItem.id">
+          <div class="media-left">
+            <b-icon pack="fas" icon="building" size="is-small"></b-icon>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p @click='clickLink(archItem.type, archItem.id)'>
+                <strong>{{ archItem.name }}</strong> <small> {{ archItem.place_name }}</small>
+                <br>
+                <small> {{ archItem.des2 }} </small>
               </p>
             </div>
           </div>
@@ -108,7 +123,7 @@ export default {
               } else if (roadItem.des) {
                 roadDescription = roadItem.des.substring(0, 25) + ' ...'
               }
-              this.searchItemList.push({
+              this.roadItemList.push({
                 'name': roadItem.name_chs,
                 'road_name': '',
                 'place_name': roadItem.place_name,
@@ -135,7 +150,7 @@ export default {
               } else if (architectureItem.des) {
                 architectureDescription = architectureItem.des.substring(0, 25) + ' ...'
               }
-              this.searchItemList.push({
+              this.archItemList.push({
                 'name': architectureItem.name_chs,
                 'road_name': architectureItem.road_name_chs,
                 'place_name': architectureItem.place_name,
@@ -164,7 +179,8 @@ export default {
       sh_distrit_list: [],
       sh_road_list: [],
       sh_architecture_list: [],
-      searchItemList: [],
+      roadItemList: [],
+      archItemList: [],
       searchKeyword: null
     }
   },

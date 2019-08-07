@@ -87,6 +87,15 @@
                     </b-icon>
                   </b-button>
                 </p>
+                <p class="control">
+                  <b-button @click="goArchMap">
+                    <b-icon
+                    pack="fas"
+                    icon="map-marked-alt"
+                    size="is-big">
+                    </b-icon>
+                  </b-button>
+                </p>
               </div>
             </div>
             <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav,  'navbar-burger-left': !hideSearchNav }">
@@ -182,11 +191,17 @@ export default {
       if (!this.showSearch) {
         this.showSearch = true
         this.getAutocomplateData()
+      } else if (!this.keyword_name) {
+        console.log("keyword shouldn't be empty.")
+        this.showSearch = false
       } else {
         console.log(this.keyword_name)
         console.log(this.$router)
         this.$router.push({'name': 'Search', 'query': {'keyword': this.keyword_name}})
       }
+    },
+    goArchMap () {
+      this.$router.push({'name': 'ArchitecuteMap'})
     }
   },
   computed: {

@@ -13,6 +13,7 @@ import EChartsMapDemo from '@/components/EChartsMapDemo'
 import EChartsRoadDemo from '@/components/EChartsRoadDemo'
 import SearchResult from '@/components/SearchResult'
 import ArchitectureMap from '@/components/ArchitectureMap'
+import RelatedPlaceMap from '@/components/RelatedPlaceMap'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/search',
       name: 'Search',
       component: SearchResult
+    },
+    {
+      path: '/relatedplaces',
+      name: 'RelatedPlaceMap',
+      component: RelatedPlaceMap
     },
     {
       path: '/architectures',
