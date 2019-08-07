@@ -667,6 +667,7 @@ export default {
   methods: {
     initMap () {
       this.chart = echarts.init(this.$refs.map)
+      console.log(bmapOptions)
       this.chart.setOption(bmapOptions)
       this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
       // this.bmap.setMinZoom(6) // 设置地图最小缩放比例

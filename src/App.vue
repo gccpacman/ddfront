@@ -15,10 +15,10 @@
               <a class="navbar-item" href="/">
                 主页
               </a>
-              <a class="navbar-item" href="/relatedplacesmap">
+              <a class="navbar-item" href="/relatedplacesmap/">
                 关联地名
               </a>
-              <a class="navbar-item" href="/repatedplacesankey">
+              <a class="navbar-item" href="/repatedplacesankey/">
                 桑基图
               </a>
               <a class="navbar-item" href="#">

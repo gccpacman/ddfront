@@ -1,49 +1,91 @@
 <template>
   <div class='container'>
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <p class="subtitle is-5">
-              <strong></strong> 筛选地区
-            </p>
-          </div>
-          <div class="level-item">
-            <b-field>
-              <b-select v-model="place_name" placeholder="选择行政区（徐汇区，静安区...）" icon="earth" @input="selectChanged">
-                <option
-                  v-for="(option, idx) in shanghai_distrit_names"
-                  :value="option"
-                  :key="idx">
-                  {{ option }}
-                </option>
-              </b-select>
-            </b-field>
-          </div>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <p class="subtitle is-5">
+            <strong></strong> 筛选地区
+          </p>
+        </div>
+        <div class="level-item">
+          <b-field>
+            <b-select v-model="place_name" placeholder="选择行政区（徐汇区，静安区...）" icon="earth" @input="selectChanged">
+              <option
+                v-for="(option, idx) in shanghai_distrit_names"
+                :value="option"
+                :key="idx">
+                {{ option }}
+              </option>
+            </b-select>
+          </b-field>
         </div>
       </div>
-      <div class="media">
-        <div class="media-content">
-          <div class="content">
-            <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
-              <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
-              <template v-for="arch in archList">
-                <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false">
-                  <bm-label :content="arch.name" :labelStyle="{color: 'black', fontSize : '7px', backgroundColor :'rgba(255,255,255,0.3)', border: '1px'}" :offset="{width: -20, height: 10}"/>
-                </bm-marker>
-              </template>
-            </baidu-map>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="container">
+      <div ref="map" class="map"></div>
+    </div>
   </div>
 </template>
 
 <script>
+import echarts from 'echarts'
+import 'echarts/extension/bmap/bmap'
+
+var bmapOptions = {
+  // backgroundColor: '#404a59',
+  animation: false,
+  title: {
+    text: '',
+    subtext: '',
+    sublink: '',
+    left: 'center',
+    textStyle: {
+      color: '#000'
+    }
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: function (params) {
+      return params.name
+    }
+  },
+  bmap: {
+    center: [121.459493, 31.229147],
+    zoom: 14,
+    roam: true
+  },
+  series: [
+    {
+      type: 'scatter',
+      coordinateSystem: 'bmap',
+      data: [],
+      hoverAnimation: true,
+      symbolSize: 8,
+      label: {
+        normal: {
+          formatter: '{b}',
+          position: 'right',
+          show: false
+        },
+        emphasis: {
+          show: false
+        }
+      },
+      itemStyle: {
+        normal: {
+          color: 'purple'
+        }
+      }
+    }
+  ]
+}
 
 export default {
   name: 'ArchitectureMap',
   data () {
     return {
+      chart: echarts.ECharts,
+      bmap: {},
       zoom: 13,
       place_name: '徐汇',
       shanghai_distrit_names: ['普陀', '静安', '杨浦', '黄浦', '南汇', '嘉定', '徐汇', '奉贤', '闸北', '卢湾', '长宁', '闵行', '青浦', '金山', '宝山', '虹口', '浦东'],
@@ -51,9 +93,7 @@ export default {
     }
   },
   methods: {
-    handler ({BMap, map}) {
-      console.log(BMap, map)
-      console.log(this.shanghai_distrit_names)
+    initMap () {
       this.reloadArch()
     },
     selectChanged () {
@@ -65,17 +105,22 @@ export default {
           place_name: this.place_name
         }
       }).then((response) => {
-        this.archList = response.data
-        console.log(this.archList)
+        bmapOptions['series'][0]['data'] = response.data
+        console.log(bmapOptions)
+        this.chart = echarts.init(this.$refs.map)
+        this.chart.setOption(bmapOptions)
+        this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
+        this.bmap.setMinZoom(13) // 设置地图最小缩放比例
+        this.bmap.setMaxZoom(16) // 设置地图最大缩放比例
       }).catch(function (error) {
         console.log(error)
       })
     }
   },
+  mounted () {
+    this.initMap()
+  },
   computed: {
-    center () {
-      return '上海市' + this.place_name
-    }
   }
 }
 </script>
@@ -90,4 +135,8 @@ export default {
     padding: 5 5 5 5;
     font-family:"微软雅黑";
   }
+  .map {
+  width: 100%;
+  height: 500px;
+}
 </style>
