@@ -15,20 +15,26 @@
               <a class="navbar-item" href="/">
                 主页
               </a>
-              <a class="navbar-item" href="/demo/baidumap">
-                百度地图行政区域demo
+              <a class="navbar-item" href="/relatedplacesmap">
+                关联地名
               </a>
-              <a class="navbar-item" href="/demo/echartsmap">
-                echarts行政区域demo
+              <a class="navbar-item" href="/repatedplacesankey">
+                关联地名
               </a>
-              <a class="navbar-item" href="/demo/echarts">
-                桑基图demo
+              <a class="navbar-item" href="#">
+                命名
               </a>
-              <a class="navbar-item" href="/demo/echartsroad">
-                echarts马路demo
+              <a class="navbar-item" href="#">
+                历史
               </a>
-              <a class="navbar-item" href="/road/1312">
-                百度地图马路demo
+              <a class="navbar-item" href="#">
+                租界
+              </a>
+              <a class="navbar-item" href="#">
+                大上海
+              </a>
+              <a class="navbar-item" href="#">
+                H5
               </a>
               <!-- <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
