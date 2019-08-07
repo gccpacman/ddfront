@@ -65,10 +65,10 @@
             <!--
         Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
-            <div class="navbar-item search-button-container" v-if="!hideSearchNav">
+            <div class="navbar-item search-button-container" >
               <div class="field has-addons">
                 <p class="control">
-                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路" @select="option => selected = option">
+                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路" @focus="getAutocomplateData" @select="option => selected = option">
                     <template slot-scope="props">
                       <div class="media">
                         <div class="media-left">
@@ -104,7 +104,7 @@
                 </p>
               </div>
             </div>
-            <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav,  'navbar-burger-left': !hideSearchNav }">
+            <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav }">
               <span></span>
               <span></span>
               <span></span>
@@ -140,6 +140,7 @@ import Table from 'buefy/dist/components/table'
 import Input from 'buefy/dist/components/input'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import {bus} from './bus'
 
 Vue.use(Buefy)
 Vue.use(Table)
@@ -159,7 +160,7 @@ export default {
   data () {
     return {
       showNav: false,
-      showSearch: false,
+      showSearch: true,
       keyword_name: '',
       keyword_icon: '',
       keyword_selected: null,
@@ -196,14 +197,16 @@ export default {
     search () {
       if (!this.showSearch) {
         this.showSearch = true
-        this.getAutocomplateData()
       } else if (!this.keyword_name) {
         console.log("keyword shouldn't be empty.")
-        this.showSearch = false
-      } else {
+        // this.showSearch = false
+      } else if (this.$route.name !== 'Search') {
         console.log(this.keyword_name)
         console.log(this.$router)
         this.$router.push({'name': 'Search', 'query': {'keyword': this.keyword_name}})
+      } else {
+        console.log('hello emit.')
+        bus.$emit('eventGreet')
       }
     },
     goArchMap () {
@@ -218,7 +221,7 @@ export default {
           .toString()
           .indexOf(this.keyword_name) >= 0
       }).filter((option, idx) => {
-        return idx < 20
+        return idx < 10
       })
     },
     hideSearchNav () {
