@@ -39,7 +39,7 @@ export default new Router({
       path: '/repatedplacesankey',
       name: 'RelatedPlaceSankey',
       component: RelatedPlaceSankey
-    }
+    },
     {
       path: '/architecturesmap',
       name: 'ArchitecuteMap',

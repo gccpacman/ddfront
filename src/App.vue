@@ -19,7 +19,7 @@
                 关联地名
               </a>
               <a class="navbar-item" href="/repatedplacesankey">
-                关联地名
+                桑基图
               </a>
               <a class="navbar-item" href="#">
                 命名
