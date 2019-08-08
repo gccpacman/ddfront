@@ -18,7 +18,7 @@
               <a class="navbar-item" href="/relatedplacesmap/">
                 关联地名
               </a>
-              <a class="navbar-item" href="/repatedplacesankey/">
+              <a class="navbar-item" href="/relatedplacesankey/">
                 桑基图
               </a>
               <a class="navbar-item" href="#">
