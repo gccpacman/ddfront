@@ -36,7 +36,7 @@ export default new Router({
       component: RelatedPlaceMap
     },
     {
-      path: '/repatedplacesankey',
+      path: '/relatedplacesankey',
       name: 'RelatedPlaceSankey',
       component: RelatedPlaceSankey
     },
