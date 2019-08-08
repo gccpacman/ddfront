@@ -15,11 +15,14 @@
               <a class="navbar-item" href="/">
                 主页
               </a>
+              <a class="navbar-item" href="/architecturesmap/">
+                优秀历史建筑地图
+              </a>
               <a class="navbar-item" href="/relatedplacesmap/">
-                关联地名
+                马路命名相关城市地图
               </a>
               <a class="navbar-item" href="/relatedplacesankey/">
-                桑基图
+                马路命名相关省份桑基图
               </a>
               <a class="navbar-item" href="#">
                 命名

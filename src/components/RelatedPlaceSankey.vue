@@ -93,6 +93,6 @@ export default {
 <style scoped>
 #chart {
   width: 100%;
-  height: 500px;
+  height: 660px;
 }
 </style>

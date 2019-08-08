@@ -1,26 +1,36 @@
 <template>
   <div class='container'>
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <p class="subtitle is-5">
-            <strong></strong> 筛选地区
-          </p>
-        </div>
-        <div class="level-item">
-          <b-field>
-            <b-select v-model="place_name" placeholder="选择行政区（徐汇区，静安区...）" icon="earth" @input="selectChanged">
-              <option
-                v-for="(option, idx) in shanghai_distrit_names"
-                :value="option"
-                :key="idx">
-                {{ option }}
-              </option>
-            </b-select>
-          </b-field>
-        </div>
-      </div>
-    </div>
+<!--    <div class="level">-->
+<!--      <div class="level-left">-->
+<!--        <div class="level-item">-->
+<!--          <p class="subtitle is-5">-->
+<!--            <strong></strong> 筛选地区-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="level-item">-->
+<!--          <b-field>-->
+<!--            <b-select v-model="place_name" placeholder="选择行政区（徐汇区，静安区...）" icon="earth" @input="selectChanged">-->
+<!--              <option-->
+<!--                v-for="(option, idx) in shanghai_distrit_names"-->
+<!--                :value="option"-->
+<!--                :key="idx">-->
+<!--                {{ option }}-->
+<!--              </option>-->
+<!--            </b-select>-->
+<!--          </b-field>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <section class="container">
+      <h1 class="subtitle">
+        上海市优秀历史建筑
+      </h1>
+      <template v-for="district in shanghaiDistrict">
+          <span v-bind:key="district.name"  style="white-space: nowrap; padding-right: 5px; font-size: 14px">
+            <span class="is-small" v-bind:style="{'color': district.color}">▨</span><small>{{ district.name }}</small>
+          </span>
+      </template>
+    </section>
     <div class="container">
       <div ref="map" class="map"></div>
     </div>
@@ -55,28 +65,6 @@ var bmapOptions = {
     roam: true
   },
   series: [
-    {
-      type: 'scatter',
-      coordinateSystem: 'bmap',
-      data: [],
-      hoverAnimation: true,
-      symbolSize: 8,
-      label: {
-        normal: {
-          formatter: '{b}',
-          position: 'right',
-          show: false
-        },
-        emphasis: {
-          show: false
-        }
-      },
-      itemStyle: {
-        normal: {
-          color: 'purple'
-        }
-      }
-    }
   ]
 }
 
@@ -86,32 +74,136 @@ export default {
     return {
       chart: echarts.ECharts,
       bmap: {},
-      zoom: 13,
+      zoom: 14,
       place_name: '徐汇',
       shanghai_distrit_names: ['普陀', '静安', '杨浦', '黄浦', '南汇', '嘉定', '徐汇', '奉贤', '闸北', '卢湾', '长宁', '闵行', '青浦', '金山', '宝山', '虹口', '浦东'],
-      archList: []
+      shanghaiDistrict: [
+        {
+          'name': '徐汇区',
+          'color': 'blue',
+          'data': []
+        },
+        {
+          'name': '普陀区',
+          'color': 'yellow',
+          'data': []
+        },
+        {
+          'name': '静安区',
+          'color': 'green',
+          'data': []
+        },
+        {
+          'name': '杨浦区',
+          'color': 'lightgreen',
+          'data': []
+        },
+        {
+          'name': '黄浦区',
+          'color': 'black',
+          'data': []
+        },
+        {
+          'name': '嘉定区',
+          'color': 'orange',
+          'data': []
+        },
+        {
+          'name': '虹口区',
+          'color': 'grey',
+          'data': []
+        },
+        {
+          'name': '长宁区',
+          'color': 'lightblue',
+          'data': []
+        },
+        {
+          'name': '闵行区',
+          'color': 'purple',
+          'data': []
+        },
+        {
+          'name': '浦东新区',
+          'color': 'teal',
+          'data': []
+        },
+        {
+          'name': '金山区',
+          'color': 'aqua',
+          'data': []
+        },
+        {
+          'name': '奉贤区',
+          'color': 'silver',
+          'data': []
+        },
+        {
+          'name': '宝山区',
+          'color': 'olive',
+          'data': []
+        },
+        {
+          'name': '松江区',
+          'color': 'navy',
+          'data': []
+        }
+      ]
     }
   },
   methods: {
     initMap () {
-      this.reloadArch()
+      this.loadArchitecture()
     },
-    selectChanged () {
-      this.reloadArch()
-    },
-    reloadArch () {
-      this.axios.get(process.env.ROOT_API + '/architecture/positions/', {
-        params: {
-          place_name: this.place_name
+    // selectChanged () {
+    //   this.reloadArch()
+    // },
+    loadArchitecture () {
+      this.axios.get(process.env.ROOT_API + '/architecture/positions/').then((response) => {
+        var res = response.data
+        for (var i = 0; i < res.length; i++) {
+          for (var ii = 0; ii < this.shanghaiDistrict.length; ii++) {
+            if (this.shanghaiDistrict[ii]['name'].substring(0, 2) === res[i]['place_name']) {
+              this.shanghaiDistrict[ii]['data'].push(res[i])
+              continue
+            }
+          }
         }
-      }).then((response) => {
-        bmapOptions['series'][0]['data'] = response.data
-        console.log(bmapOptions)
+        for (var j = 0; j < this.shanghaiDistrict.length; j++) {
+          bmapOptions['series'].push({
+            type: 'scatter',
+            coordinateSystem: 'bmap',
+            data: this.shanghaiDistrict[j]['data'],
+            hoverAnimation: true,
+            symbolSize: 7,
+            label: {
+              normal: {
+                formatter: '{b}',
+                position: 'right',
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: this.shanghaiDistrict[j]['color'],
+                borderColor: '#fff',
+                borderWidth: 1,
+                borderType: 'solid',
+                shadowBlur: 10,
+                shadowColor: this.shanghaiDistrict[j]['color']
+              }
+            }
+          })
+        }
         this.chart = echarts.init(this.$refs.map)
         this.chart.setOption(bmapOptions)
         this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
-        this.bmap.setMinZoom(13) // 设置地图最小缩放比例
+        this.bmap.setMinZoom(12) // 设置地图最小缩放比例
         this.bmap.setMaxZoom(16) // 设置地图最大缩放比例
+        console.log(bmapOptions)
       }).catch(function (error) {
         console.log(error)
       })
