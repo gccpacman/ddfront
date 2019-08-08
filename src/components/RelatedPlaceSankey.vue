@@ -23,7 +23,7 @@ var data = {
 
 var option = {
   title: {
-    text: 'Sankey Diagram'
+    text: '上海各区路名和省份地名桑基图'
   },
   tooltip: {
     trigger: 'item',
@@ -57,7 +57,30 @@ export default {
   },
   mounted () {
     this.chart = echarts.init(this.$refs.chart)
-    this.chart.setOption(option)
+    this.axios.get(process.env.ROOT_API + '/place/relatedprovinces/').then((response) => {
+      var links = response.data
+      var nodes = []
+      var nameSet = []
+      for (var i = 0; i < links.length; i++) {
+        var source = links[i].source
+        var target = links[i].target
+        if (nameSet.indexOf(source) === -1) {
+          nameSet.push(source)
+        }
+        if (nameSet.indexOf(target) === -1) {
+          nameSet.push(target)
+        }
+      }
+      for (var j = 0; j < nameSet.length; j++) {
+        nodes.push({
+          'name': nameSet[j]
+        })
+      }
+      option['series'][0]['data'] = nodes
+      option['series'][0]['links'] = links
+      console.log(option)
+      this.chart.setOption(option)
+    })
   },
   data () {
     return {
