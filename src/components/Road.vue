@@ -20,19 +20,10 @@
         </div>
       </div>
     </section>
-    <div v-if="polylinePathList.length" class="bmap-container is-gapless">
-      <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
-        <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
-        <template v-for="(polylinePath, index) in polylinePathList">
-          <bm-polyline v-bind:item="polylinePath" v-bind:key="index" :path="polylinePath" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2" :editing="false"></bm-polyline>
-        </template>
-        <template v-for="arch in archList">
-          <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false" :title="arch.name">
-          </bm-marker>
-        </template>
-      </baidu-map>
+    <div class="container">
+      <div ref="map" class="map"></div>
     </div>
-    <article v-if="des" lass="message is-small is-dark">
+    <article v-if="des" class="message is-small is-dark">
       <div class="message-body">
         <p>{{ des }}</p>
       </div>
@@ -41,6 +32,24 @@
 </template>
 
 <script>
+
+import echarts from 'echarts'
+import 'echarts/extension/bmap/bmap'
+
+var bmapOptions = {
+  // backgroundColor: '#404a59',
+  animation: false,
+  tooltip: {
+    trigger: 'item'
+  },
+  bmap: {
+    center: [121.444337, 31.210335],
+    zoom: 16,
+    roam: true
+  },
+  series: []
+}
+
 export default {
   name: 'Road',
   methods: {
@@ -54,33 +63,91 @@ export default {
       this.name_chs = response.data.name_chs
       this.des = response.data.des2
       this.place_name = response.data.place_name2
-      this.polylinePathList = response.data.polylines_bmap
-      console.log(this.polylinePathList)
-      this.center = response.data.center_bmap
-      var archItems = response.data.road_architecture
-      if (archItems && archItems.length > 0) {
-        for (var i = 0; i < archItems.length; i++) {
-          this.archList.push({
-            'id': archItems._id,
-            'name': archItems[i].name_chs,
-            'des2': archItems[i].des2,
-            'position': {
-              'lng': archItems[i].longitude,
-              'lat': archItems[i].latitude
-            }
+      if (response.data.center_bmap) {
+        bmapOptions['bmap']['center'] = [response.data.center_bmap.lng, response.data.center_bmap.lat]
+        var roadPolylineList = response.data.polylines_bmap
+        for (var i = 0; i < roadPolylineList.length; i++) {
+          var polyline = []
+          for (var j = 0; j < roadPolylineList[i].length; j++) {
+            polyline.push([roadPolylineList[i][j].lng, roadPolylineList[i][j].lat])
+          }
+          bmapOptions['series'].push({
+            name: 'road_lines',
+            type: 'lines',
+            coordinateSystem: 'bmap',
+            lineStyle: {
+              normal: {
+                color: 'blue',
+                type: 'solid',
+                shadowColor: 'rgba(0,0,0,0)',
+                shadowBlur: 5,
+                shadowOffsetX: 3,
+                shadowOffsetY: 3,
+                opacity: 0.7,
+                width: 2
+              }
+            },
+            polyline: true,
+            data: [{
+              'name': this.name_chs,
+              'coords': polyline
+            }]
           })
         }
+        var archItems = response.data.road_architecture
+        var archList = []
+        if (archItems && archItems.length > 0) {
+          for (var k = 0; k < archItems.length; k++) {
+            archList.push({
+              'id': archItems._id,
+              'name': archItems[k].name_chs,
+              'des2': archItems[k].des2,
+              'value': [archItems[k].longitude, archItems[k].latitude]
+            })
+          }
+        }
+        bmapOptions['series'].push({
+          type: 'scatter',
+          coordinateSystem: 'bmap',
+          data: archList,
+          hoverAnimation: true,
+          symbolSize: 7,
+          label: {
+            normal: {
+              formatter: '{b}',
+              position: 'right',
+              show: false
+            },
+            emphasis: {
+              show: false
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: 'yellow',
+              borderColor: '#000',
+              borderWidth: 1,
+              borderType: 'solid',
+              shadowBlur: 10,
+              shadowColor: 'yellow'
+            }
+          }
+        })
       }
+      console.log(bmapOptions)
+      this.chart = echarts.init(this.$refs.map)
+      this.chart.setOption(bmapOptions)
+      this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
+      this.bmap.setMinZoom(14) // 设置地图最小缩放比例
+      this.bmap.setMaxZoom(20) // 设置地图最大缩放比例
     }).catch(function (error) {
       console.log(error)
     })
   },
   data () {
     return {
-      center: null,
-      zoom: 15,
-      polylinePathList: [],
-      archList: [],
+      chart: echarts.ECharts,
+      bmap: {},
       name_chs: '',
       des: '',
       place_name: ''
@@ -90,16 +157,8 @@ export default {
 </script>
 
 <style scoped>
-  .bmap-container {
-    flex: none;
+  .map {
     width: 100%;
-  }
-  .bm-view {
-    width: 100%;
-    height: 260px;
-    overflow: hidden;
-    margin:0;
-    padding: 0 0 0 0;
-    font-family:"微软雅黑";
+    height: 350px;
   }
 </style>
