@@ -20,7 +20,7 @@
         </div>
       </div>
     </section>
-    <div class="container">
+    <div v-if="has_map" class="container">
       <div ref="map" class="map"></div>
     </div>
     <article v-if="des" class="message is-small is-dark">
@@ -63,7 +63,8 @@ export default {
       this.name_chs = response.data.name_chs
       this.des = response.data.des2
       this.place_name = response.data.place_name2
-      if (response.data.center_bmap) {
+      if (Object.entries(response.data.center_bmap).length !== 0 || response.data.center_bmap.constructor !== Object) {
+        this.has_map = true
         bmapOptions['bmap']['center'] = [response.data.center_bmap.lng, response.data.center_bmap.lat]
         var roadPolylineList = response.data.polylines_bmap
         for (var i = 0; i < roadPolylineList.length; i++) {
@@ -133,13 +134,13 @@ export default {
             }
           }
         })
+        console.log(bmapOptions)
+        this.chart = echarts.init(this.$refs.map)
+        this.chart.setOption(bmapOptions)
+        this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
+        this.bmap.setMinZoom(14) // 设置地图最小缩放比例
+        this.bmap.setMaxZoom(20) // 设置地图最大缩放比例
       }
-      console.log(bmapOptions)
-      this.chart = echarts.init(this.$refs.map)
-      this.chart.setOption(bmapOptions)
-      this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
-      this.bmap.setMinZoom(14) // 设置地图最小缩放比例
-      this.bmap.setMaxZoom(20) // 设置地图最大缩放比例
     }).catch(function (error) {
       console.log(error)
     })
@@ -148,6 +149,7 @@ export default {
     return {
       chart: echarts.ECharts,
       bmap: {},
+      has_map: false,
       name_chs: '',
       des: '',
       place_name: ''
