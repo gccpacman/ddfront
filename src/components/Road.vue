@@ -1,5 +1,13 @@
 <template>
   <section>
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li><a href="#">{{ place_name }}</a></li>
+          <li class="is-active"><a href="#">{{ name_chs }}</a></li>
+        </ul>
+      </nav>
+    </div>
     <section class="hero is-info is-small">
       <div class="hero-body">
         <div class="container">
@@ -19,8 +27,7 @@
           <bm-polyline v-bind:item="polylinePath" v-bind:key="index" :path="polylinePath" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2" :editing="false"></bm-polyline>
         </template>
         <template v-for="arch in archList">
-          <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false">
-            <bm-label :content="arch.name" :labelStyle="{color: 'black', fontSize : '10px', backgroundColor :'rgba(255,255,255,0.3)', border: '1px'}" :offset="{width: -20, height: 10}"/>
+          <bm-marker v-bind:item="arch" v-bind:key="arch.id" :position="arch.position" :dragging="false" :title="arch.name">
           </bm-marker>
         </template>
       </baidu-map>

@@ -1,12 +1,27 @@
 <template>
   <section>
-    <nav class="breadcrumb" aria-label="breadcrumbs">
-      <ul>
-        <li><a href="#">{{ arch.place_name }}</a></li>
-        <li><a href="#">{{ arch.road_name_chs }}</a></li>
-        <li class="is-active"><a href="#" aria-current="page">{{ arch.name_chs}}</a></li>
-      </ul>
-    </nav>
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li><a href="#">{{ arch.place_name }}</a></li>
+          <li><a href="#">{{ arch.road_name_chs }}</a></li>
+          <li class="is-active">
+            <a href="#" aria-current="page"></a>
+            <b-dropdown aria-role="list">
+              <a
+                slot="trigger"
+                role="button">
+                <span>{{ arch.name_chs}}</span>
+                <b-icon icon="angle-down" pack="fas" ></b-icon>
+              </a>
+              <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
+              <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+              <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
+            </b-dropdown>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <section class="hero is-warning is-small">
       <div class="hero-body">
         <div class="container">

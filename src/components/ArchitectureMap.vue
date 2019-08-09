@@ -205,7 +205,7 @@ export default {
         this.chart.setOption(bmapOptions)
         this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
         this.bmap.setMinZoom(12) // 设置地图最小缩放比例
-        this.bmap.setMaxZoom(16) // 设置地图最大缩放比例
+        this.bmap.setMaxZoom(20) // 设置地图最大缩放比例
         console.log(bmapOptions)
       }).catch(function (error) {
         console.log(error)
