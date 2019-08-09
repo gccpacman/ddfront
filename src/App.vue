@@ -119,7 +119,7 @@
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container">
-          <router-view/>
+          <router-view ref='router-view' />
         </div>
       </div>
       <footer class="footer">
@@ -144,7 +144,6 @@ import Table from 'buefy/dist/components/table'
 import Input from 'buefy/dist/components/input'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import {bus} from './bus'
 
 Vue.use(Buefy)
 Vue.use(Table)
@@ -209,7 +208,7 @@ export default {
         this.$router.push({'name': 'Search', 'query': {'keyword': this.keyword_name}})
       } else {
         console.log('hello emit.')
-        bus.$emit('eventGreet')
+        this.$refs['router-view'].onSearch()
       }
     },
     goArchMap () {
