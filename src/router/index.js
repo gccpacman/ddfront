@@ -26,72 +26,72 @@ export default new Router({
       component: Index
     },
     {
-      path: '/search',
+      path: '/search/',
       name: 'Search',
       component: SearchResult
     },
     {
-      path: '/relatedplacesmap',
+      path: '/relatedplacesmap/',
       name: 'RelatedPlaceMap',
       component: RelatedPlaceMap
     },
     {
-      path: '/relatedplacesankey',
+      path: '/relatedplacesankey/',
       name: 'RelatedPlaceSankey',
       component: RelatedPlaceSankey
     },
     {
-      path: '/architecturesmap',
+      path: '/architecturesmap/',
       name: 'ArchitecuteMap',
       component: ArchitectureMap
     },
     {
-      path: '/road/:id',
+      path: '/road/:id/',
       name: 'Road',
       component: Road
     },
     {
-      path: '/architecture/:id',
+      path: '/architecture/:id/',
       name: 'Architecture',
       component: Architecture
     },
     {
-      path: '/demo/baidumap',
+      path: '/demo/baidumap/',
       name: 'BaiduMapDemo',
       component: BaiduMapDemo
     },
     {
-      path: '/demo/echarts',
+      path: '/demo/echarts/',
       name: 'EChartsDemo',
       component: EChartsDemo
     },
     {
-      path: '/demo/echartsmap',
+      path: '/demo/echartsmap/',
       name: 'EChartsMapDemo',
       component: EChartsMapDemo
     },
     {
-      path: '/demo/echartsroad',
+      path: '/demo/echartsroad/',
       name: 'EChartsRoadDemo',
       component: EChartsRoadDemo
     },
     {
-      path: '/demo/hello',
+      path: '/demo/hello/',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
-      path: '/demo/form',
+      path: '/demo/form/',
       name: 'form-check',
       component: FormCheck
     },
     {
-      path: '/butter/blogs',
+      path: '/butter/blogs/',
       name: 'blog-home',
       component: BlogHome
     },
     {
-      path: '/butter/blog/:slug',
+      path: '/butter/blog/:slug/',
       name: 'blog-post',
       component: BlogPost
     },
