@@ -155,9 +155,9 @@ export default {
     }
   },
   methods: {
-    initMap () {
-      this.loadArchitecture()
-    },
+    // initMap () {
+    //   this.loadArchitecture()
+    // },
     // selectChanged () {
     //   this.reloadArch()
     // },
@@ -213,7 +213,7 @@ export default {
     }
   },
   mounted () {
-    this.initMap()
+    this.loadArchitecture()
   },
   computed: {
   }

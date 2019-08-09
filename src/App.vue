@@ -119,7 +119,7 @@
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container">
-          <router-view ref='router-view' />
+          <router-view ref='rview' />
         </div>
       </div>
       <footer class="footer">
@@ -205,10 +205,9 @@ export default {
       } else if (this.$route.name !== 'Search') {
         console.log(this.keyword_name)
         console.log(this.$router)
-        this.$router.push({'name': 'Search', 'query': {'keyword': this.keyword_name}})
+        this.$router.push({'name': 'Search'})
       } else {
-        console.log('hello emit.')
-        this.$refs['router-view'].onSearch()
+        this.$refs['rview'].onSearch(this.keyword_name)
       }
     },
     goArchMap () {

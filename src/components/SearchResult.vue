@@ -74,80 +74,70 @@ export default {
         this.$router.push({name: 'Architecture', params: { id: itemId }})
       }
     },
-    onSearch () {
-      if (this.$parent.keyword_name) {
-        this.roadItemList = []
-        this.archItemList = []
-        this.roadLoading = true
-        this.archLoading = true
-        this.axios.get(process.env.ROOT_API + '/roads/', {
-          params: {
-            search: this.$parent.keyword_name
+    onSearch (searchKeyword) {
+      this.roadItemList = []
+      this.archItemList = []
+      this.roadLoading = true
+      this.archLoading = true
+      this.axios.get(process.env.ROOT_API + '/roads/?search=' + searchKeyword).then((response) => {
+        console.log(response.data)
+        var roadList = response.data.results
+        for (var i = 0; i < roadList.length; i++) {
+          var roadItem = roadList[i]
+          var roadDescription = ''
+          if (roadItem.des2 && roadItem.des2.length > 0) {
+            roadDescription = roadItem.des2.substring(0, 40) + ' ...'
+          } else if (roadItem.des) {
+            roadDescription = roadItem.des.substring(0, 40) + ' ...'
           }
-        }).then((response) => {
-          console.log(response.data)
-          var roadList = response.data.results
-          for (var i = 0; i < roadList.length; i++) {
-            var roadItem = roadList[i]
-            var roadDescription = ''
-            if (roadItem.des2 && roadItem.des2.length > 0) {
-              roadDescription = roadItem.des2.substring(0, 40) + ' ...'
-            } else if (roadItem.des) {
-              roadDescription = roadItem.des.substring(0, 40) + ' ...'
-            }
-            this.roadItemList.push({
-              'name': roadItem.name_chs,
-              'place_name': roadItem.place_name2,
-              'des2': roadDescription,
-              'type': 'road',
-              'id': roadItem._id
-            })
+          this.roadItemList.push({
+            'name': roadItem.name_chs,
+            'place_name': roadItem.place_name2,
+            'des2': roadDescription,
+            'type': 'road',
+            'id': roadItem._id
+          })
+        }
+        this.roadLoading = false
+      }).catch(function (error) {
+        console.log(error)
+      })
+      this.axios.get(process.env.ROOT_API + '/architectures/?search=' + searchKeyword).then((response) => {
+        console.log(response.data)
+        var architectureList = response.data.results
+        for (var i = 0; i < architectureList.length; i++) {
+          var architectureItem = architectureList[i]
+          var architectureDescription = ''
+          if (architectureItem.des2 && architectureItem.des2.length > 0) {
+            architectureDescription = architectureItem.des2.substring(0, 40) + ' ...'
+          } else if (architectureItem.des) {
+            architectureDescription = architectureItem.des.substring(0, 40) + ' ...'
           }
-          this.roadLoading = false
-        })
-        this.axios.get(process.env.ROOT_API + '/architectures/', {
-          params: {
-            search: this.$parent.keyword_name
-          }
-        }).then((response) => {
-          console.log(response.data)
-          var architectureList = response.data.results
-          for (var i = 0; i < architectureList.length; i++) {
-            var architectureItem = architectureList[i]
-            var architectureDescription = ''
-            if (architectureItem.des2 && architectureItem.des2.length > 0) {
-              architectureDescription = architectureItem.des2.substring(0, 40) + ' ...'
-            } else if (architectureItem.des) {
-              architectureDescription = architectureItem.des.substring(0, 40) + ' ...'
-            }
-            this.archItemList.push({
-              'name': architectureItem.name_chs,
-              'road_name': architectureItem.road_name_chs,
-              'place_name': architectureItem.place_name,
-              'des2': architectureDescription,
-              'type': 'architecture',
-              'id': architectureItem._id
-            })
-          }
-          this.archLoading = false
-        })
-      }
+          this.archItemList.push({
+            'name': architectureItem.name_chs,
+            'road_name': architectureItem.road_name_chs,
+            'place_name': architectureItem.place_name,
+            'des2': architectureDescription,
+            'type': 'architecture',
+            'id': architectureItem._id
+          })
+        }
+        this.archLoading = false
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   },
   mounted () {
-    this.$parent.keyword_name = this.$route.query.keyword
-    this.$parent.showSearch = true
-    this.$parent.getAutocomplateData()
-    this.onSearch()
+    this.onSearch(this.$parent.keyword_name)
   },
   data () {
     return {
       rootApi: process.env.ROOT_API,
-      roadLoading: true,
-      archLoading: true,
+      roadLoading: false,
+      archLoading: false,
       roadItemList: [],
-      archItemList: [],
-      searchKeyword: null
+      archItemList: []
     }
   },
   computed: {
