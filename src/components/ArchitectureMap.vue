@@ -178,7 +178,7 @@ export default {
             coordinateSystem: 'bmap',
             data: this.shanghaiDistrict[j]['data'],
             hoverAnimation: true,
-            symbolSize: 7,
+            symbolSize: 10,
             label: {
               normal: {
                 formatter: '{b}',

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="arch">
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>

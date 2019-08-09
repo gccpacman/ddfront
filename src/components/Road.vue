@@ -20,7 +20,7 @@
         </div>
       </div>
     </section>
-    <div v-if="has_map" class="container">
+    <div class="container">
       <div ref="map" class="map"></div>
     </div>
     <article v-if="des" class="message is-small is-dark">
@@ -40,7 +40,10 @@ var bmapOptions = {
   // backgroundColor: '#404a59',
   animation: false,
   tooltip: {
-    trigger: 'item'
+    trigger: 'item',
+    formatter: function (params) {
+      return params.name
+    }
   },
   bmap: {
     center: [121.444337, 31.210335],
@@ -55,6 +58,9 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
+    },
+    clickScatter (params) {
+      this.$router.push({name: 'Architecture', params: { id: params.data.id }})
     }
   },
   mounted () {
@@ -100,7 +106,7 @@ export default {
         if (archItems && archItems.length > 0) {
           for (var k = 0; k < archItems.length; k++) {
             archList.push({
-              'id': archItems._id,
+              'id': archItems[k]._id,
               'name': archItems[k].name_chs,
               'des2': archItems[k].des2,
               'value': [archItems[k].longitude, archItems[k].latitude]
@@ -112,7 +118,7 @@ export default {
           coordinateSystem: 'bmap',
           data: archList,
           hoverAnimation: true,
-          symbolSize: 7,
+          symbolSize: 10,
           label: {
             normal: {
               formatter: '{b}',
@@ -140,6 +146,7 @@ export default {
         this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
         this.bmap.setMinZoom(14) // 设置地图最小缩放比例
         this.bmap.setMaxZoom(20) // 设置地图最大缩放比例
+        this.chart.on('click', this.clickScatter)
       }
     }).catch(function (error) {
       console.log(error)
