@@ -21,15 +21,18 @@
 <!--          </div>-->
 <!--        </div>-->
 <!--      </div>-->
-      <section class="container">
+      <section class="container box">
         <h1 class="subtitle">
           上海市路名关联的全国城市
         </h1>
-        <template v-for="district in districtList">
-          <span v-bind:key="district.name"  style="white-space: nowrap; padding-right: 5px; font-size: 14px">
-            <span class="is-small" v-bind:style="{'color': district.color}">▨</span><small>{{ district.name }}</small>
+        <div class="columns">
+          <template v-for="district in districtList" class="column"   >
+          <span v-bind:key="district.name" style="padding-right: 2px; font-size: 14px" class="is-small">
+            <small v-bind:style="{'color': district.color}">▨</small>
+            <small>{{ district.name }}</small>
           </span>
-        </template>
+          </template>
+        </div>
       </section>
       <div class="media">
         <div class="media-content">

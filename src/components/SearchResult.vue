@@ -2,7 +2,7 @@
   <section>
     <div class="search-result-container">
       <b-tabs position="is-centered" class="block">
-        <b-tab-item label="马路">
+        <b-tab-item :label="road_result_count">
           <template v-for="roadItem in roadItemList">
             <article class="media" v-bind:item="roadItem" v-bind:key="roadItem.id">
               <div class="media-left">
@@ -20,7 +20,7 @@
             </article>
           </template>
         </b-tab-item>
-        <b-tab-item label="建筑">
+        <b-tab-item :label="arch_result_count">
           <template v-for="archItem in archItemList">
             <article class="media" v-bind:item="archItem" v-bind:key="archItem.id">
               <div class="media-left">
@@ -73,7 +73,7 @@ export default {
             }
             this.roadItemList.push({
               'name': roadItem.name_chs,
-              'place_name': roadItem.place_name,
+              'place_name': roadItem.place_name2,
               'des2': roadDescription,
               'type': 'road',
               'id': roadItem._id
@@ -126,6 +126,12 @@ export default {
     }
   },
   computed: {
+    road_result_count () {
+      return '马路(' + this.roadItemList.length + ')'
+    },
+    arch_result_count () {
+      return '建筑(' + this.archItemList.length + ')'
+    }
   }
 }
 </script>

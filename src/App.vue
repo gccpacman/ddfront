@@ -71,14 +71,15 @@
             <div class="navbar-item search-button-container" >
               <div class="field has-addons">
                 <p class="control">
-                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路" @focus="getAutocomplateData" @select="option => selected = option">
+                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路"
+                                  @focus="getAutocomplateData" @select="option => selected = option" @keyup.enter.native="search">
                     <template slot-scope="props">
                       <div class="media">
-                        <div class="media-left">
-                          <b-icon v-if="props.option.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>
-                          <b-icon v-else-if="props.option.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>
-                          <b-icon v-else-if="props.option.type==='place'" pack="fas" icon="map-marker" size="is-small"></b-icon>
-                        </div>
+<!--                        <div class="media-left">-->
+<!--                          <b-icon v-if="props.option.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>-->
+<!--                          <b-icon v-else-if="props.option.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>-->
+<!--                          <b-icon v-else-if="props.option.type==='place'" pack="fas" icon="map-marker" size="is-small"></b-icon>-->
+<!--                        </div>-->
                         <div class="media-content">
                           <b>{{ props.option.name }}</b>
                         </div>
@@ -217,6 +218,38 @@ export default {
   },
   computed: {
     filterdRoadData () {
+      if (!this.keyword_name) {
+        return [
+          {
+            'name': '武康路',
+            'type': 'road'
+          },
+          {
+            'name': '新华路',
+            'type': 'road'
+          },
+          {
+            'name': '华山路',
+            'type': 'road'
+          },
+          {
+            'name': '武康大楼',
+            'type': 'architecture'
+          },
+          {
+            'name': '宋家老宅',
+            'type': 'architecture'
+          },
+          {
+            'name': '茂龄别墅',
+            'type': 'architecture'
+          },
+          {
+            'name': '马可尼无线电公司',
+            'type': 'architecture'
+          }
+        ]
+      }
       var keywordItems = this.sh_distrit_list.concat(this.sh_road_list, this.sh_architecture_list)
       return keywordItems.filter((option) => {
         return option.name

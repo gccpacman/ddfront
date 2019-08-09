@@ -12,7 +12,7 @@
         </div>
       </div>
     </section>
-    <div class="bmap-container is-gapless">
+    <div v-if="JSON.stringify(polylinePathList)==='{}'" class="bmap-container is-gapless">
       <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
         <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
         <template v-for="(polylinePath, index) in polylinePathList">
@@ -44,6 +44,7 @@ export default {
         this.des = response.data.des2
         this.place_name = response.data.place_name
         this.polylinePathList = response.data.polylines_bmap
+        console.log(this.polylinePathList)
         this.center = response.data.center_bmap
         var archItems = response.data.road_architecture
         if (archItems && archItems.length > 0) {
