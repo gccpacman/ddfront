@@ -71,7 +71,8 @@
             <div class="navbar-item search-button-container" >
               <div class="field has-addons">
                 <p class="control">
-                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData" :open-on-focus="true" placeholder="输入路名: e.g. 武康路"
+                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData"
+                                  :open-on-focus="true" placeholder="输入路名: e.g. 武康路"
                                   @focus="getAutocomplateData" @select="option => selected = option" @keyup.enter.native="search">
                     <template slot-scope="props">
                       <div class="media">
@@ -142,14 +143,10 @@ import 'buefy/dist/buefy.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import Table from 'buefy/dist/components/table'
 import Input from 'buefy/dist/components/input'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 
 Vue.use(Buefy)
 Vue.use(Table)
 Vue.use(Input)
-
-Vue.use(VueAxios, axios)
 
 Vue.use(BaiduMap, {
   ak: 'bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy'
@@ -166,6 +163,7 @@ export default {
       showSearch: true,
       keyword_name: '',
       keyword_icon: '',
+      suggestWordLoaded: false,
       sh_distrit_list: [],
       sh_road_list: [],
       sh_architecture_list: []
@@ -173,8 +171,8 @@ export default {
   },
   methods: {
     getAutocomplateData () {
-      if (this.sh_road_list.length === 0) {
-        this.axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
+      if (!this.suggestWordLoaded) {
+        this.$axios.get(process.env.ROOT_API + '/keyword/road').then((response) => {
           var roadList = response.data
           for (var i = 0; i < roadList.length; i++) {
             this.sh_road_list.push({
@@ -182,9 +180,7 @@ export default {
               'type': 'road'
             })
           }
-        })
-        if (this.sh_architecture_list.length === 0) {
-          this.axios.get(process.env.ROOT_API + '/keyword/architecture').then((response) => {
+          this.$axios.get(process.env.ROOT_API + '/keyword/architecture').then((response) => {
             var architectureList = response.data
             for (var i = 0; i < architectureList.length; i++) {
               this.sh_architecture_list.push({
@@ -192,8 +188,9 @@ export default {
                 'type': 'architecture'
               })
             }
+            this.suggestWordLoaded = true
           })
-        }
+        })
       }
     },
     search () {
@@ -223,10 +220,6 @@ export default {
             'type': 'road'
           },
           {
-            'name': '新华路',
-            'type': 'road'
-          },
-          {
             'name': '华山路',
             'type': 'road'
           },
@@ -236,10 +229,6 @@ export default {
           },
           {
             'name': '宋家老宅',
-            'type': 'architecture'
-          },
-          {
-            'name': '茂龄别墅',
             'type': 'architecture'
           },
           {

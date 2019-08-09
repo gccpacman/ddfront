@@ -41,9 +41,9 @@ export default {
       console.log(BMap, map)
     }
   },
-  created () {
+  mounted () {
     console.log('hello road')
-    this.axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
+    this.$axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
       this.name_chs = response.data.name_chs
       this.des = response.data.des2
       this.place_name = response.data.place_name2

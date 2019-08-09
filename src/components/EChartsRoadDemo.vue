@@ -187,7 +187,7 @@ export default {
   },
   methods: {
     initMap () {
-      this.axios.get(process.env.ROOT_API + '/roads/polylines/').then((response) => {
+      this.$axios.get(process.env.ROOT_API + '/roads/polylines/').then((response) => {
         var roadPolylineList = response.data
         for (var k = 0; k < roadPolylineList.length; k++) {
           var resPolylineList = roadPolylineList[k].polylines

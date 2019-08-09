@@ -130,7 +130,7 @@ export default {
       }
     },
     loadRelatedPlace (place) {
-      this.axios.get(process.env.ROOT_API + '/road/relatedplaces/', {
+      this.$axios.get(process.env.ROOT_API + '/road/relatedplaces/', {
         params: {
           place_name: place.name
         }

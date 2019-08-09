@@ -57,7 +57,7 @@ export default {
   },
   mounted () {
     this.chart = echarts.init(this.$refs.chart)
-    this.axios.get(process.env.ROOT_API + '/place/relatedprovinces/').then((response) => {
+    this.$axios.get(process.env.ROOT_API + '/place/relatedprovinces/').then((response) => {
       var links = response.data
       var nodes = []
       var nameSet = []

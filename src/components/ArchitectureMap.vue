@@ -162,7 +162,7 @@ export default {
     //   this.reloadArch()
     // },
     loadArchitecture () {
-      this.axios.get(process.env.ROOT_API + '/architecture/positions/').then((response) => {
+      this.$axios.get(process.env.ROOT_API + '/architecture/positions/').then((response) => {
         var res = response.data
         for (var i = 0; i < res.length; i++) {
           for (var ii = 0; ii < this.shanghaiDistrict.length; ii++) {

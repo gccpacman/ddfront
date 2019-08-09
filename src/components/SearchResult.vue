@@ -79,7 +79,7 @@ export default {
       this.archItemList = []
       this.roadLoading = true
       this.archLoading = true
-      this.axios.get(process.env.ROOT_API + '/roads/?search=' + searchKeyword).then((response) => {
+      this.$axios.get(process.env.ROOT_API + '/roads/?search=' + searchKeyword).then((response) => {
         console.log(response.data)
         var roadList = response.data.results
         for (var i = 0; i < roadList.length; i++) {
@@ -102,7 +102,7 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
-      this.axios.get(process.env.ROOT_API + '/architectures/?search=' + searchKeyword).then((response) => {
+      this.$axios.get(process.env.ROOT_API + '/architectures/?search=' + searchKeyword).then((response) => {
         console.log(response.data)
         var architectureList = response.data.results
         for (var i = 0; i < architectureList.length; i++) {

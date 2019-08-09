@@ -38,9 +38,9 @@ export default {
       console.log(BMap, map)
     }
   },
-  created () {
+  mounted () {
     console.log('hello architecture.')
-    this.axios.get(process.env.ROOT_API + '/architecture/' + this.$route.params.id).then((response) => {
+    this.$axios.get(process.env.ROOT_API + '/architecture/' + this.$route.params.id).then((response) => {
       this.arch = response.data
     }).catch(function (error) {
       console.log(error)
