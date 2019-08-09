@@ -1,10 +1,10 @@
 <template>
   <section>
-    <section class="hero is-info">
+    <section class="hero is-info is-small">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            {{ title }}
+            {{ name_chs }}
           </h1>
           <h2 class="subtitle">
             {{ place_name }}
@@ -12,7 +12,7 @@
         </div>
       </div>
     </section>
-    <div v-if="JSON.stringify(polylinePathList)==='{}'" class="bmap-container is-gapless">
+    <div v-if="polylinePathList.length" class="bmap-container is-gapless">
       <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
         <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
         <template v-for="(polylinePath, index) in polylinePathList">
@@ -25,7 +25,7 @@
         </template>
       </baidu-map>
     </div>
-    <article class="message is-small is-dark">
+    <article v-if="des" lass="message is-small is-dark">
       <div class="message-body">
         <p>{{ des }}</p>
       </div>
@@ -39,33 +39,34 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
-      this.axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
-        this.title = response.data.name_chs
-        this.des = response.data.des2
-        this.place_name = response.data.place_name
-        this.polylinePathList = response.data.polylines_bmap
-        console.log(this.polylinePathList)
-        this.center = response.data.center_bmap
-        var archItems = response.data.road_architecture
-        if (archItems && archItems.length > 0) {
-          for (var i = 0; i < archItems.length; i++) {
-            this.archList.push({
-              'id': archItems._id,
-              'name': archItems[i].name_chs,
-              'position': {
-                'lng': archItems[i].longitude,
-                'lat': archItems[i].latitude
-              }
-            })
-          }
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
     }
   },
   created () {
     console.log('hello road')
+    this.axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
+      this.name_chs = response.data.name_chs
+      this.des = response.data.des2
+      this.place_name = response.data.place_name2
+      this.polylinePathList = response.data.polylines_bmap
+      console.log(this.polylinePathList)
+      this.center = response.data.center_bmap
+      var archItems = response.data.road_architecture
+      if (archItems && archItems.length > 0) {
+        for (var i = 0; i < archItems.length; i++) {
+          this.archList.push({
+            'id': archItems._id,
+            'name': archItems[i].name_chs,
+            'des2': archItems[i].des2,
+            'position': {
+              'lng': archItems[i].longitude,
+              'lat': archItems[i].latitude
+            }
+          })
+        }
+      }
+    }).catch(function (error) {
+      console.log(error)
+    })
   },
   data () {
     return {
@@ -73,9 +74,9 @@ export default {
       zoom: 15,
       polylinePathList: [],
       archList: [],
-      title: '路名',
-      des: '描述',
-      place_name: '所在区'
+      name_chs: '',
+      des: '',
+      place_name: ''
     }
   }
 }
@@ -88,7 +89,7 @@ export default {
   }
   .bm-view {
     width: 100%;
-    height: 330px;
+    height: 260px;
     overflow: hidden;
     margin:0;
     padding: 0 0 0 0;
