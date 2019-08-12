@@ -22,24 +22,24 @@
         </ul>
       </nav>
     </div>
-    <section class="hero is-warning is-small">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            {{ arch.name_chs}}
-          </h1>
-          <h2 class="subtitle">
-            <small>{{ arch.road_name_chs }}</small>
-          </h2>
+    <div class='container'>
+      <section class="hero is-warning is-small">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              {{ arch.name_chs}}
+            </h1>
+            <h2 class="subtitle">
+              <small>{{ arch.road_name_chs }}</small>
+            </h2>
+          </div>
         </div>
-      </div>
-    </section>
-    <div>
-        <img :src="arch.first_image_path" />
+      </section>
+      <img :src="arch.first_image_path" />
     </div>
-    <article class="message is-small is-warning">
+    <article class="message is-warning">
       <div class="message-body">
-        <p>{{ arch.des2 }}</p>
+        <p class="message-p"  v-html='arch.des_html'></p>
       </div>
     </article>
   </section>
@@ -81,5 +81,10 @@ export default {
     margin:0;
     padding: 0 0 0 0;
     font-family:"微软雅黑";
+  }
+  .message-p {
+    text-align: left;
+    font-size: 15px;
+    color: black;
   }
 </style>
