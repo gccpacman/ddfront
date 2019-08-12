@@ -65,6 +65,9 @@
             <b-navbar-item tag="router-link" :to="{name: 'RelatedPlaceSankey'}">
               <a>马路相关省份桑基图</a>
             </b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{name: 'DistrictChart'}">
+              <a>各区马路命名来源饼图</a>
+            </b-navbar-item>
             <b-navbar-item href="#">
               <a>命名</a>
             </b-navbar-item>
