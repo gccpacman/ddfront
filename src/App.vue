@@ -1,110 +1,100 @@
 <template>
   <div id="app">
-    <section class="hero is-bold">
-      <!-- Hero header: will stick at the top -->
-      <div class="hero-head">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+
+        <b-navbar>
           <!--
         Using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
-          <div class="navbar-menu" :class="{ 'is-active': showNav }">
-            <div class="navbar-start">
-              <!-- <a class="navbar-item" href="/form/">
-                表格
-              </a> -->
-              <router-link class="navbar-item" :to="{name: 'Index'}">
-                <a>主页</a>
-              </router-link>
-              <router-link class="navbar-item" :to="{name: 'ArchitecuteMap'}">
-                <a>优秀历史建筑地图</a>
-              </router-link>
-              <router-link class="navbar-item" :to="{name: 'RelatedPlaceMap'}">
-                <a>马路相关城市地图</a>
-              </router-link>
-              <router-link class="navbar-item" :to="{name: 'RelatedPlaceSankey'}">
-                <a>马路相关省份桑基图</a>
-              </router-link>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  更多
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="#">
-                    命名
-                  </a>
-                  <a class="navbar-item" href="#">
-                    历史
-                  </a>
-                  <a class="navbar-item" href="#">
-                    租界
-                  </a>
-                  <a class="navbar-item" href="#">
-                    大上海
-                  </a>
-                  <a class="navbar-item" href="#">
-                    H5
-                  </a>
+          <template slot="brand">
+            <b-navbar-item href="/">
+              <img src="http://bulma.io/images/bulma-logo.png" width="80px" height="auto" alt="Logo">
+            </b-navbar-item>
+            <b-navbar-item tag="div">
+              <div class="search-button-container" >
+                <div class="field has-addons">
+                  <p class="control">
+                    <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData"
+                                    :open-on-focus="true" placeholder="输入路名: e.g. 武康路"
+                                    @focus="getAutocomplateData" @select="option => selected = option" @keyup.enter.native="search">
+                      <template slot-scope="props">
+                        <div class="media">
+                          <div class="media-content">
+                            <b>{{ props.option.name }}</b>
+                          </div>
+                        </div>
+                      </template>
+                      <template slot="empty">没有结果...</template>
+                    </b-autocomplete>
+                  </p>
+                  <p class="control">
+                    <b-button @click="search">
+                      <b-icon
+                      pack="fas"
+                      icon="search"
+                      size="is-big">
+                      </b-icon>
+                    </b-button>
+                  </p>
+                  <p class="control">
+                    <b-button @click="goArchMap">
+                      <b-icon
+                      pack="fas"
+                      icon="map-marked-alt"
+                      size="is-big">
+                      </b-icon>
+                    </b-button>
+                  </p>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="navbar-brand">
+            </b-navbar-item>
+          </template>
+
+          <template slot="start">
+            <!-- <a class="navbar-item" href="/form/">
+              表格
+            </a> -->
+            <b-navbar-item tag="router-link" :to="{name: 'Index'}">
+              <a>主页</a>
+            </b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{name: 'RelatedPlaceMap'}">
+              <a>马路相关城市地图</a>
+            </b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{name: 'ArchitecuteMap'}">
+              <a>优秀历史建筑地图</a>
+            </b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{name: 'RelatedPlaceSankey'}">
+              <a>马路相关省份桑基图</a>
+            </b-navbar-item>
+            <b-navbar-item href="#">
+              <a>命名</a>
+            </b-navbar-item>
+            <b-navbar-item href="#">
+              <a>历史</a>
+            </b-navbar-item>
+            <b-navbar-item href="#">
+              <a>租界</a>
+            </b-navbar-item>
+            <b-navbar-item href="#">
+              <a>大上海</a>
+            </b-navbar-item>
+            <b-navbar-item href="#">
+              <a>H5</a>
+            </b-navbar-item>
+          </template>
             <!-- <a class="navbar-item" href="/">
               <img src="http://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Logo">
             </a> -->
             <!--
         Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
-            <div class="navbar-item search-button-container" >
-              <div class="field has-addons">
-                <p class="control">
-                  <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData"
-                                  :open-on-focus="true" placeholder="输入路名: e.g. 武康路"
-                                  @focus="getAutocomplateData" @select="option => selected = option" @keyup.enter.native="search">
-                    <template slot-scope="props">
-                      <div class="media">
-<!--                        <div class="media-left">-->
-<!--                          <b-icon v-if="props.option.type==='architecture'" pack="fas" icon="building" size="is-small"></b-icon>-->
-<!--                          <b-icon v-else-if="props.option.type==='road'" pack="fas" icon="road" size="is-small"></b-icon>-->
-<!--                          <b-icon v-else-if="props.option.type==='place'" pack="fas" icon="map-marker" size="is-small"></b-icon>-->
-<!--                        </div>-->
-                        <div class="media-content">
-                          <b>{{ props.option.name }}</b>
-                        </div>
-                      </div>
-                    </template>
-                    <template slot="empty">没有结果...</template>
-                  </b-autocomplete>
-                </p>
-                <p class="control">
-                  <b-button @click="search">
-                    <b-icon
-                    pack="fas"
-                    icon="search"
-                    size="is-big">
-                    </b-icon>
-                  </b-button>
-                </p>
-                <p class="control">
-                  <b-button @click="goArchMap">
-                    <b-icon
-                    pack="fas"
-                    icon="map-marked-alt"
-                    size="is-big">
-                    </b-icon>
-                  </b-button>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-burger" @click="showNav = !showNav"  :class="{ 'is-active': showNav }">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </nav>
-      </div>
+          <template slot="end">
+          </template>
+        </b-navbar>
+      <section class="hero is-bold">
+      <!-- Hero header: will stick at the top -->
+      <div class="hero-head">
       <!-- Hero content: will be in the middle -->
+      </div>
       <div class="hero-body">
         <div class="container">
           <router-view ref='rview' />
@@ -128,12 +118,11 @@ import BaiduMap from 'vue-baidu-map'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import '@fortawesome/fontawesome-free/css/all.css'
-import Table from 'buefy/dist/components/table'
-import Input from 'buefy/dist/components/input'
 
-Vue.use(Buefy)
-Vue.use(Table)
-Vue.use(Input)
+Vue.use(Buefy, {
+  defaultIconPack: 'fas',
+  defaultContainerElement: '#content'
+})
 
 Vue.use(BaiduMap, {
   ak: 'bRrHftKV7wBPHYFSkp2GRZQCVGbz8nhy'
@@ -215,6 +204,10 @@ export default {
             'type': 'architecture'
           },
           {
+            'name': '淮海中路',
+            'type': 'road'
+          },
+          {
             'name': '宋家老宅',
             'type': 'architecture'
           },
@@ -250,13 +243,7 @@ export default {
 // }
 
 .search-button-container {
-  display: block;
-  position: relative;
-  // height: 3.25rem;
-  // width: 3rem;
-  margin-left: auto;
-  margin-right: 0px;
-  // float: right;
+  width: 190px;
 }
 .search-button {
   border-width: 0px;
@@ -280,7 +267,10 @@ export default {
   width: 100%;
 }
 .context-container {
-  max-width: 690px;
+  max-width: 690px!important;
+}
+.dropdown-content {
+  width: 190px
 }
 
 </style>

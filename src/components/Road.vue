@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="container ">
-      <nav class="breadcrumb" aria-label="breadcrumbs" v-if="road">
+    <div class="container context-container">
+      <nav class="breadcrumb bread-nav" aria-label="breadcrumbs" v-if="road">
         <ul>
           <li>
             <a href="#">
@@ -202,5 +202,8 @@ export default {
     text-align: left;
     font-size: 15px;
     color: black;
+  }
+  .bread-nav a{
+    color: black!important;
   }
 </style>

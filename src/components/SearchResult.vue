@@ -153,6 +153,5 @@ export default {
 <style scoped>
 .search-result-container {
   text-align: left;
-
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <section v-if="arch">
     <div class="container context-container">
-      <nav class="breadcrumb" aria-label="breadcrumbs" v-if='road'>
+      <nav class="breadcrumb bread-nav" aria-label="breadcrumbs" v-if='road'>
         <ul>
-          <li><a href="#"><b-icon size="is-small" icon="map-marker" pack="fas" ></b-icon> {{ road.place_name2 }}{{ arch.place_name_str }}</a></li>
+          <li><a href="#"><b-icon size="is-small" icon="map-marker" pack="fas" ></b-icon> {{ arch.place_name_str }}</a></li>
           <li>
             <router-link :to="{name: 'Road', params: { id: road._id }}">
               <a href="#"><b-icon size="is-small" icon="road" pack="fas" ></b-icon>{{ road.name_chs }}</a>
@@ -111,5 +111,8 @@ export default {
     text-align: left;
     font-size: 15px;
     color: black;
+  }
+  .bread-nav a{
+    color: black!important;
   }
 </style>
