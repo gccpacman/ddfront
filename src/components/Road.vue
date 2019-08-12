@@ -23,9 +23,9 @@
     <div class="container">
       <div ref="map" class="map"></div>
     </div>
-    <article v-if="des" class="message is-small is-dark">
+    <article v-if="des" class="message is-info">
       <div class="message-body">
-        <p>{{ des }}</p>
+        <p class="message-p" v-html=des></p>
       </div>
     </article>
   </section>
@@ -67,7 +67,7 @@ export default {
     console.log('hello road')
     this.$axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
       this.name_chs = response.data.name_chs
-      this.des = response.data.des2
+      this.des = response.data.des_html
       this.place_name = response.data.place_name2
       if (Object.entries(response.data.center_bmap).length !== 0 || response.data.center_bmap.constructor !== Object) {
         this.has_map = true
@@ -108,7 +108,7 @@ export default {
             archList.push({
               'id': archItems[k]._id,
               'name': archItems[k].name_chs,
-              'des2': archItems[k].des2,
+              'des2': archItems[k].des_html,
               'value': [archItems[k].longitude, archItems[k].latitude]
             })
           }
@@ -169,5 +169,10 @@ export default {
   .map {
     width: 100%;
     height: 350px;
+  }
+  .message-p {
+    text-align: left;
+    font-size: 15px;
+    color: black;
   }
 </style>
