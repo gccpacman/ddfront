@@ -1,6 +1,6 @@
 <template>
   <section v-if="arch">
-    <div class="container">
+    <div class="container context-container">
       <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
           <li><a href="#">{{ arch.place_name }}</a></li>
@@ -21,8 +21,6 @@
           </li>
         </ul>
       </nav>
-    </div>
-    <div class='container'>
       <section class="hero is-warning is-small">
         <div class="hero-body">
           <div class="container">
@@ -36,12 +34,12 @@
         </div>
       </section>
       <img :src="arch.first_image_path" />
+      <article class="message is-warning">
+        <div class="message-body">
+          <p class="message-p"  v-html='arch.des_html'></p>
+        </div>
+      </article>
     </div>
-    <article class="message is-warning">
-      <div class="message-body">
-        <p class="message-p"  v-html='arch.des_html'></p>
-      </div>
-    </article>
   </section>
 </template>
 
@@ -81,6 +79,9 @@ export default {
     margin:0;
     padding: 0 0 0 0;
     font-family:"微软雅黑";
+  }
+  .context-container {
+    max-width: 690px;
   }
   .message-p {
     text-align: left;
