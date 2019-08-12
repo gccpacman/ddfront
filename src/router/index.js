@@ -13,8 +13,10 @@ import Architecture from '@/components/Architecture'
 import Index from '@/components/Index'
 import SearchResult from '@/components/SearchResult'
 import ArchitectureMap from '@/components/ArchitectureMap'
+import DistrictChart from '@/components/DistrictChart'
 import RelatedPlaceMap from '@/components/RelatedPlaceMap'
 import RelatedPlaceSankey from '@/components/RelatedPlaceSankey'
+
 Vue.use(Router)
 
 export default new Router({
@@ -43,6 +45,11 @@ export default new Router({
       path: '/architecturesmap',
       name: 'ArchitecuteMap',
       component: ArchitectureMap
+    },
+    {
+      path: '/districtchart',
+      name: 'DistrictChart',
+      component: DistrictChart
     },
     {
       path: '/road/:id',
