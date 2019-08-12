@@ -3,10 +3,10 @@
     <div class="container context-container">
       <nav class="breadcrumb" aria-label="breadcrumbs" v-if='road'>
         <ul>
-          <li><a href="#">{{ arch.place_name_str }}</a></li>
+          <li><a href="#"><b-icon size="is-small" icon="map-marker" pack="fas" ></b-icon> {{ road.place_name2 }}{{ arch.place_name_str }}</a></li>
           <li>
             <router-link :to="{name: 'Road', params: { id: road._id }}">
-              <a href="#">{{ road.name_chs }}</a>
+              <a href="#"><b-icon size="is-small" icon="road" pack="fas" ></b-icon>{{ road.name_chs }}</a>
             </router-link>
           </li>
           <li class="is-active">
@@ -14,11 +14,13 @@
               <a
                 slot="trigger"
                 role="button">
+                <b-icon size="is-small" icon="building" pack="fas" ></b-icon>
                 <span>{{ arch.name_chs}}</span>
                 <b-icon icon="angle-down" pack="fas" ></b-icon>
               </a>
               <template v-for="archItem in road.road_architecture">
                 <b-dropdown-item has-link v-bind:key="archItem._id" v-bind:item="archItem" aria-role="listitem" @click="clickArchItem(archItem._id)">
+                  <b-icon size="is-small" icon="building" pack="fas" ></b-icon>
                   {{ archItem.name_chs }}
                 </b-dropdown-item>
               </template>

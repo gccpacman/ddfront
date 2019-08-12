@@ -25,6 +25,7 @@
               </a>
               <template v-for="archItem in road.road_architecture">
                 <b-dropdown-item has-link v-bind:key="archItem._id" v-bind:item="archItem" aria-role="listitem" @click="clickArchItem(archItem._id)">
+                  <b-icon size="is-small" icon="building" pack="fas" ></b-icon>
                   {{ archItem.name_chs }}
                 </b-dropdown-item>
               </template>
