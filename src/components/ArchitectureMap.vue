@@ -1,38 +1,22 @@
 <template>
   <div class='container'>
-<!--    <div class="level">-->
-<!--      <div class="level-left">-->
-<!--        <div class="level-item">-->
-<!--          <p class="subtitle is-5">-->
-<!--            <strong></strong> 筛选地区-->
-<!--          </p>-->
-<!--        </div>-->
-<!--        <div class="level-item">-->
-<!--          <b-field>-->
-<!--            <b-select v-model="place_name" placeholder="选择行政区（徐汇区，静安区...）" icon="earth" @input="selectChanged">-->
-<!--              <option-->
-<!--                v-for="(option, idx) in shanghai_distrit_names"-->
-<!--                :value="option"-->
-<!--                :key="idx">-->
-<!--                {{ option }}-->
-<!--              </option>-->
-<!--            </b-select>-->
-<!--          </b-field>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-    <section class="container box">
+    <section class="container box" columns>
       <h1 class="subtitle">
         上海市优秀历史建筑
       </h1>
-      <div class="columns">
+      <b-field class='column'>
         <template v-for="district in shanghaiDistrict" class="column"   >
-          <span v-bind:key="district.name" style="padding-right: 2px; font-size: 14px" class="is-small">
-            <small v-bind:style="{'color': district.color}">▨</small>
-            <small>{{ district.name }}</small>
+          <span @click="clickDistrict(district)" v-bind:key="district.name" style="padding-right: 3px; " v-bind:style="{'color': district.color}" >
+            <big>
+              <p v-if="district.clicked">▣</p>
+              <p v-else>▢</p>
+            </big>
+            <small>
+              {{ district.name }}
+            </small>
           </span>
         </template>
-      </div>
+      </b-field>
     </section>
     <div class="container">
       <div ref="map" class="map"></div>
@@ -64,7 +48,8 @@ var bmapOptions = {
   },
   bmap: {
     center: [121.459493, 31.229147],
-    zoom: 14,
+    map: 'china',
+    zoom: 13,
     roam: true
   },
   series: [
@@ -78,78 +63,104 @@ export default {
       chart: echarts.ECharts,
       bmap: {},
       zoom: 14,
-      place_name: '徐汇',
-      shanghai_distrit_names: ['普陀', '静安', '杨浦', '黄浦', '南汇', '嘉定', '徐汇', '奉贤', '闸北', '卢湾', '长宁', '闵行', '青浦', '金山', '宝山', '虹口', '浦东'],
       shanghaiDistrict: [
         {
           'name': '徐汇区',
           'color': 'blue',
-          'data': []
-        },
-        {
-          'name': '普陀区',
-          'color': 'yellow',
-          'data': []
+          'data': [],
+          'clicked': true,
+          'idx': null
         },
         {
           'name': '静安区',
           'color': 'green',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
+        },
+        {
+          'name': '普陀区',
+          'color': 'Fuchsia',
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '杨浦区',
-          'color': 'lightgreen',
-          'data': []
+          'color': 'Maroon',
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '黄浦区',
           'color': 'black',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '嘉定区',
           'color': 'orange',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '虹口区',
           'color': 'grey',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '长宁区',
           'color': 'lightblue',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '闵行区',
           'color': 'purple',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '浦东新区',
           'color': 'teal',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '金山区',
           'color': 'aqua',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '奉贤区',
           'color': 'silver',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '宝山区',
           'color': 'olive',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         },
         {
           'name': '松江区',
           'color': 'navy',
-          'data': []
+          'data': [],
+          'clicked': false,
+          'idx': null
         }
       ]
     }
@@ -161,6 +172,15 @@ export default {
     // selectChanged () {
     //   this.reloadArch()
     // },
+    clickDistrict (district) {
+      district.clicked = !district.clicked
+      if (!district.clicked) {
+        bmapOptions['series'][district.idx]['data'] = []
+      } else {
+        bmapOptions['series'][district.idx]['data'] = district['data']
+      }
+      this.chart.setOption(bmapOptions)
+    },
     loadArchitecture () {
       this.$axios.get(process.env.ROOT_API + '/architecture/positions/').then((response) => {
         var res = response.data
@@ -172,13 +192,20 @@ export default {
             }
           }
         }
+        this.chart = echarts.init(this.$refs.map)
         for (var j = 0; j < this.shanghaiDistrict.length; j++) {
+          this.shanghaiDistrict[j]['idx'] = j
+          var districtData = []
+          if (this.shanghaiDistrict[j]['clicked']) {
+            districtData = this.shanghaiDistrict[j]['data']
+          }
           bmapOptions['series'].push({
+            name: this.shanghaiDistrict[j]['name'],
             type: 'scatter',
             coordinateSystem: 'bmap',
-            data: this.shanghaiDistrict[j]['data'],
+            data: districtData,
             hoverAnimation: true,
-            symbolSize: 10,
+            symbolSize: 8,
             label: {
               normal: {
                 formatter: '{b}',
@@ -201,16 +228,18 @@ export default {
             }
           })
         }
-        this.chart = echarts.init(this.$refs.map)
         this.chart.setOption(bmapOptions)
         this.bmap = this.chart.getModel().getComponent('bmap').getBMap()
-        this.bmap.setMinZoom(12) // 设置地图最小缩放比例
+        this.bmap.setMinZoom(1) // 设置地图最小缩放比例
         this.bmap.setMaxZoom(20) // 设置地图最大缩放比例
-        this.chart.on('click', this.clickScatter)
         console.log(bmapOptions)
+        this.chart.on('click', this.clickScatter)
+        this.reloadMap()
       }).catch(function (error) {
         console.log(error)
       })
+    },
+    reloadMap () {
     },
     clickScatter (params) {
       console.log(params)
