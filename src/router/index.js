@@ -26,27 +26,27 @@ export default new Router({
       component: Index
     },
     {
-      path: '/search/',
+      path: '/search',
       name: 'Search',
       component: SearchResult
     },
     {
-      path: '/relatedplacesmap/',
+      path: '/relatedplacesmap',
       name: 'RelatedPlaceMap',
       component: RelatedPlaceMap
     },
     {
-      path: '/relatedplacesankey/',
+      path: '/relatedplacesankey',
       name: 'RelatedPlaceSankey',
       component: RelatedPlaceSankey
     },
     {
-      path: '/architecturesmap/',
+      path: '/architecturesmap',
       name: 'ArchitecuteMap',
       component: ArchitectureMap
     },
     {
-      path: '/road/:id/',
+      path: '/road/:id',
       name: 'Road',
       component: Road
     },
@@ -94,10 +94,6 @@ export default new Router({
       path: '/butter/blog/:slug/',
       name: 'blog-post',
       component: BlogPost
-    },
-    {
-      path: '*',
-      component: Index
     }
   ]
 })
