@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div>
+    <div class="container container-index">
       <img src="@/assets/main.png">
     </div>
     <!-- <div class="columns is-mobile">
@@ -42,5 +42,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .container-index {
+    max-width: 690px
+  }
 </style>

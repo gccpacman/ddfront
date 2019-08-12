@@ -1,33 +1,61 @@
 <template>
   <section>
-    <div class="container">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
+    <div class="container ">
+      <nav class="breadcrumb" aria-label="breadcrumbs" v-if="road">
         <ul>
-          <li><a href="#">{{ place_name }}</a></li>
-          <li class="is-active"><a href="#">{{ name_chs }}</a></li>
+          <li>
+            <a href="#">
+              <b-icon size="is-small" icon="map-marker" pack="fas" ></b-icon> {{ road.place_name2 }}
+            </a>
+          </li>
+          <li class="is-active">
+            <a href="#">
+              <b-icon size="is-small" icon="road" pack="fas" ></b-icon>
+              {{ road.name_chs }}
+            </a>
+          </li>
+          <li>
+            <b-dropdown aria-role="list">
+              <a
+                slot="trigger"
+                role="button">
+                <b-icon size="is-small" icon="building" pack="fas" ></b-icon>
+                ...
+                <b-icon icon="angle-down" pack="fas" ></b-icon>
+              </a>
+              <template v-for="archItem in road.road_architecture">
+                <b-dropdown-item has-link v-bind:key="archItem._id" v-bind:item="archItem" aria-role="listitem" @click="clickArchItem(archItem._id)">
+                  {{ archItem.name_chs }}
+                </b-dropdown-item>
+              </template>
+              <!-- <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
+              <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+              <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item> -->
+            </b-dropdown>
+          </li>
         </ul>
       </nav>
-    </div>
-    <section class="hero is-info is-small">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            {{ name_chs }}
-          </h1>
-          <h2 class="subtitle">
-            {{ place_name }}
-          </h2>
+      <section class="hero is-info is-small" v-if="road">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              {{ road.name_chs }}
+            </h1>
+            <h2 class="subtitle">
+              {{ road.place_name2 }}
+            </h2>
+          </div>
         </div>
+      </section>
+      <div class="container">
+        <div ref="map" class="map"></div>
       </div>
-    </section>
-    <div class="container">
-      <div ref="map" class="map"></div>
+      <article v-if="road && road.des_html" class="message is-info">
+        <div class="message-body">
+          <p class="message-p" v-html=road.des_html></p>
+        </div>
+      </article>
     </div>
-    <article v-if="des" class="message is-info">
-      <div class="message-body">
-        <p class="message-p" v-html=des></p>
-      </div>
-    </article>
   </section>
 </template>
 
@@ -61,14 +89,15 @@ export default {
     },
     clickScatter (params) {
       this.$router.push({name: 'Architecture', params: { id: params.data.id }})
+    },
+    clickArchItem (archId) {
+      this.$router.push({name: 'Architecture', params: { id: archId }})
     }
   },
   mounted () {
     console.log('hello road')
     this.$axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
-      this.name_chs = response.data.name_chs
-      this.des = response.data.des_html
-      this.place_name = response.data.place_name2
+      this.road = response.data
       if (Object.entries(response.data.center_bmap).length !== 0 || response.data.center_bmap.constructor !== Object) {
         this.has_map = true
         bmapOptions['bmap']['center'] = [response.data.center_bmap.lng, response.data.center_bmap.lat]
@@ -157,9 +186,7 @@ export default {
       chart: echarts.ECharts,
       bmap: {},
       has_map: false,
-      name_chs: '',
-      des: '',
-      place_name: ''
+      road: null
     }
   }
 }
@@ -168,7 +195,7 @@ export default {
 <style scoped>
   .map {
     width: 100%;
-    height: 350px;
+    height: 300px;
   }
   .message-p {
     text-align: left;

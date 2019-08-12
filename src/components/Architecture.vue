@@ -1,12 +1,15 @@
 <template>
   <section v-if="arch">
     <div class="container context-container">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
+      <nav class="breadcrumb" aria-label="breadcrumbs" v-if='road'>
         <ul>
-          <li><a href="#">{{ arch.place_name }}</a></li>
-          <li><a href="#">{{ arch.road_name_chs }}</a></li>
+          <li><a href="#">{{ arch.place_name_str }}</a></li>
+          <li>
+            <router-link :to="{name: 'Road', params: { id: road._id }}">
+              <a href="#">{{ road.name_chs }}</a>
+            </router-link>
+          </li>
           <li class="is-active">
-            <a href="#" aria-current="page"></a>
             <b-dropdown aria-role="list">
               <a
                 slot="trigger"
@@ -14,9 +17,14 @@
                 <span>{{ arch.name_chs}}</span>
                 <b-icon icon="angle-down" pack="fas" ></b-icon>
               </a>
-              <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
+              <template v-for="archItem in road.road_architecture">
+                <b-dropdown-item has-link v-bind:key="archItem._id" v-bind:item="archItem" aria-role="listitem" @click="clickArchItem(archItem._id)">
+                  {{ archItem.name_chs }}
+                </b-dropdown-item>
+              </template>
+              <!-- <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
               <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
-              <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
+              <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item> -->
             </b-dropdown>
           </li>
         </ul>
@@ -49,19 +57,36 @@ export default {
   methods: {
     handler ({BMap, map}) {
       console.log(BMap, map)
+    },
+    clickArchItem (archId) {
+      this.$router.push('/architecture/' + archId)
+      var archList = this.road.road_architecture
+      for (var i = 0; i < archList.length; i++) {
+        if (archList[i]._id === archId) {
+          this.arch = archList[i]
+          console.log(this.arch)
+          return
+        }
+      }
     }
   },
   mounted () {
     console.log('hello architecture.')
     this.$axios.get(process.env.ROOT_API + '/architecture/' + this.$route.params.id).then((response) => {
       this.arch = response.data
+      this.$axios.get(this.arch.road).then((responseRoad) => {
+        this.road = responseRoad.data
+      }).catch(function (errorRoad) {
+        console.log(errorRoad)
+      })
     }).catch(function (error) {
       console.log(error)
     })
   },
   data () {
     return {
-      arch: null
+      arch: null,
+      road: null
     }
   }
 }
@@ -79,9 +104,6 @@ export default {
     margin:0;
     padding: 0 0 0 0;
     font-family:"微软雅黑";
-  }
-  .context-container {
-    max-width: 690px;
   }
   .message-p {
     text-align: left;

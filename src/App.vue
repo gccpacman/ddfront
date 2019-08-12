@@ -276,4 +276,11 @@ export default {
   color: #2c3e50;
   margin-top: 5px;
 }
+.context-container-full {
+  width: 100%;
+}
+.context-container {
+  max-width: 690px;
+}
+
 </style>

@@ -46,7 +46,7 @@
                       <router-link :to="{name: 'Architecture', params: { id: archItem.id }}">
                         <strong>{{ archItem.name }}</strong>
                       </router-link>
-                      <small> {{ archItem.road_name}}  {{ archItem.place_name }}</small>
+                      <small> {{ archItem.road_name}} - {{ archItem.place_name_str }}</small>
                       <br>
                       <small> {{ archItem.des2 }} </small>
                     </p>
