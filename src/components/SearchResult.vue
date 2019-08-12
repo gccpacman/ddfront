@@ -11,8 +11,11 @@
                 </div>
                 <div class="media-content">
                   <div class="content">
-                    <p @click='clickLink(roadItem.type, roadItem.id)'>
-                      <strong>{{ roadItem.name }}</strong> <small> {{ roadItem.place_name }}</small>
+                    <p>
+                      <router-link :to="{name: 'Road', params: { id: roadItem.id }}">
+                        <strong>{{ roadItem.name }}</strong>
+                      </router-link>
+                      <small> {{ roadItem.place_name }}</small>
                       <br>
                       <small> {{ roadItem.des2 }} </small>
                     </p>
@@ -39,8 +42,11 @@
                 </div>
                 <div class="media-content">
                   <div class="content">
-                    <p @click='clickLink(archItem.type, archItem.id)'>
-                      <strong>{{ archItem.name }}</strong> <small> {{ archItem.road_name}}  {{ archItem.place_name }}</small>
+                    <p>
+                      <router-link :to="{name: 'Architecture', params: { id: archItem.id }}">
+                        <strong>{{ archItem.name }}</strong>
+                      </router-link>
+                      <small> {{ archItem.road_name}}  {{ archItem.place_name }}</small>
                       <br>
                       <small> {{ archItem.des2 }} </small>
                     </p>
@@ -67,13 +73,6 @@
 export default {
   name: 'SearchResult',
   methods: {
-    clickLink (itemType, itemId) {
-      if (itemType === 'road') {
-        this.$router.push({name: 'Road', params: { id: itemId }})
-      } else if (itemType === 'architecture') {
-        this.$router.push({name: 'Architecture', params: { id: itemId }})
-      }
-    },
     onSearch (searchKeyword) {
       this.roadItemList = []
       this.archItemList = []

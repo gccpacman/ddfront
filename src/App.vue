@@ -12,53 +12,40 @@
               <!-- <a class="navbar-item" href="/form/">
                 表格
               </a> -->
-              <a class="navbar-item" href="/">
-                主页
-              </a>
-              <a class="navbar-item" href="/architecturesmap">
-                优秀历史建筑地图
-              </a>
-              <a class="navbar-item" href="/relatedplacesmap">
-                马路命名相关城市地图
-              </a>
-              <a class="navbar-item" href="/relatedplacesankey">
-                马路命名相关省份桑基图
-              </a>
-              <a class="navbar-item" href="#">
-                命名
-              </a>
-              <a class="navbar-item" href="#">
-                历史
-              </a>
-              <a class="navbar-item" href="#">
-                租界
-              </a>
-              <a class="navbar-item" href="#">
-                大上海
-              </a>
-              <a class="navbar-item" href="#">
-                H5
-              </a>
-              <!-- <div class="navbar-item has-dropdown is-hoverable">
+              <router-link class="navbar-item" :to="{name: 'Index'}">
+                <a>主页</a>
+              </router-link>
+              <router-link class="navbar-item" :to="{name: 'ArchitecuteMap'}">
+                <a>优秀历史建筑地图</a>
+              </router-link>
+              <router-link class="navbar-item" :to="{name: 'RelatedPlaceMap'}">
+                <a>马路相关城市地图</a>
+              </router-link>
+              <router-link class="navbar-item" :to="{name: 'RelatedPlaceSankey'}">
+                <a>马路相关省份桑基图</a>
+              </router-link>
+              <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                  More
+                  更多
                 </a>
                 <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    About
+                  <a class="navbar-item" href="#">
+                    命名
                   </a>
-                  <a class="navbar-item">
-                    Jobs
+                  <a class="navbar-item" href="#">
+                    历史
                   </a>
-                  <a class="navbar-item">
-                    Contact
+                  <a class="navbar-item" href="#">
+                    租界
                   </a>
-                  <hr class="navbar-divider">
-                  <a class="navbar-item">
-                    Report an issue
+                  <a class="navbar-item" href="#">
+                    大上海
+                  </a>
+                  <a class="navbar-item" href="#">
+                    H5
                   </a>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
           <div class="navbar-brand">
