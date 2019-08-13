@@ -1,46 +1,30 @@
 <template>
   <div class='container'>
-<!--      <div class="level">-->
-<!--        <div class="level-left">-->
-<!--          <div class="level-item">-->
-<!--            <p class="subtitle is-5">-->
-<!--              <strong></strong> 筛选地区-->
-<!--            </p>-->
-<!--          </div>-->
-<!--          <div class="level-item">-->
-<!--            <b-field>-->
-<!--              <b-select v-model="place_name" placeholder="选择行政区（徐汇区，静安区...）" icon="earth" @input="selectChanged">-->
-<!--                <option-->
-<!--                  v-for="(option, idx) in shanghaiDistrictNames"-->
-<!--                  :value="option"-->
-<!--                  :key="idx">-->
-<!--                  {{ option }}-->
-<!--                </option>-->
-<!--              </b-select>-->
-<!--            </b-field>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
       <section class="container box">
         <h1 class="subtitle">
           上海市路名关联的全国城市
         </h1>
-        <div class="columns">
-          <template v-for="district in districtList" class="column"   >
-          <span v-bind:key="district.name" style="padding-right: 2px; font-size: 14px" class="is-small">
-            <small v-bind:style="{'color': district.color}">▨</small>
-            <small>{{ district.name }}</small>
-          </span>
+        <b-field class='column'>
+          <template v-for="district in shanghaiDistrict" class="column"   >
+            <span @click="clickDistrict(district)" v-bind:key="district.name" style="padding-right: 3px; " v-bind:style="{'color': district.color}" >
+              <big>
+                <p v-if="district.clicked">▣</p>
+                <p v-else>▢</p>
+              </big>
+              <small>
+                {{ district.name }}
+              </small>
+            </span>
           </template>
-        </div>
+        </b-field>
       </section>
       <div class="media">
         <div class="media-content">
           <div class="content">
             <baidu-map id="allmap" class="bm-view" :center="center" :zoom="zoom" @ready="handler">
               <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
-              <template v-for="district in districtList">
-                <template v-for="road in district.data">
+              <template v-for="district in shanghaiDistrict">
+                <template v-for="road in district.data_view">
                   <bm-boundary v-bind:item="road" v-bind:key="road.id" :name="road.related_place" :strokeWeight="1" :fillOpacity="0.2" :strokeColor="district.color" :fillColor="district.color">
                   </bm-boundary>
                 </template>
@@ -64,88 +48,132 @@ export default {
       shanghaiDistrict: [
         {
           'name': '徐汇区',
-          'color': 'blue'
-        },
-        {
-          'name': '普陀区',
-          'color': 'yellow'
+          'color': 'blue',
+          'data': [],
+          'data_view': [],
+          'clicked': true
         },
         {
           'name': '静安区',
-          'color': 'green'
+          'color': 'green',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
-          'name': '杨浦区',
-          'color': 'lightgreen'
-        },
-        {
-          'name': '黄浦区',
-          'color': 'black'
-        },
-        {
-          'name': '嘉定区',
-          'color': 'orange'
+          'name': '普陀区',
+          'color': 'Fuchsia',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '虹口区',
-          'color': 'grey'
+          'color': 'grey',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '长宁区',
-          'color': 'lightblue'
+          'color': 'lightblue',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '闵行区',
-          'color': 'purple'
+          'color': 'purple',
+          'data': [],
+          'data_view': [],
+          'clicked': false
+        },
+        {
+          'name': '杨浦区',
+          'color': 'Maroon',
+          'data': [],
+          'data_view': [],
+          'clicked': false
+        },
+        {
+          'name': '黄浦区',
+          'color': 'black',
+          'data': [],
+          'data_view': [],
+          'clicked': false
+        },
+        {
+          'name': '嘉定区',
+          'color': 'orange',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '浦东新区',
-          'color': 'teal'
+          'color': 'teal',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '金山区',
-          'color': 'aqua'
+          'color': 'aqua',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '奉贤区',
-          'color': 'silver'
+          'color': 'silver',
+          'data': [],
+          'clicked': false
         },
         {
           'name': '宝山区',
-          'color': 'olive'
+          'color': 'olive',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         },
         {
           'name': '松江区',
-          'color': 'navy'
+          'color': 'navy',
+          'data': [],
+          'data_view': [],
+          'clicked': false
         }
-      ],
-      districtList: []
+      ]
     }
   },
   methods: {
-    handler ({BMap, map}) {
-      console.log(BMap, map)
-      for (var i = 0; i < this.shanghaiDistrict.length; i++) {
-        this.loadRelatedPlace(this.shanghaiDistrict[i])
+    clickDistrict (district) {
+      district.clicked = !district.clicked
+      if (district.clicked) {
+        district['data_view'] = district['data']
+      } else {
+        district['data_view'] = []
       }
     },
-    loadRelatedPlace (place) {
+    loadDistrict (district) {
       this.$axios.get(process.env.ROOT_API + '/road/relatedplaces/', {
         params: {
-          place_name: place.name
+          place_name: district['name']
         }
       }).then((response) => {
-        this.districtList.push({
-          'name': place['name'],
-          'color': place['color'],
-          'data': response.data
-        })
+        district['data'] = response.data
+        if (district['clicked']) {
+          district['data_view'] = response.data
+        }
       }).catch(function (error) {
         console.log(error)
       })
     },
-    selectChanged () {
-      // this.reloadArch()
+    handler ({BMap, map}) {
+      console.log(BMap, map)
+      for (var i = 0; i < this.shanghaiDistrict.length; i++) {
+        this.loadDistrict(this.shanghaiDistrict[i])
+      }
     }
   },
   computed: {

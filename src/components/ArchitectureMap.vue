@@ -86,27 +86,6 @@ export default {
           'idx': null
         },
         {
-          'name': '杨浦区',
-          'color': 'Maroon',
-          'data': [],
-          'clicked': false,
-          'idx': null
-        },
-        {
-          'name': '黄浦区',
-          'color': 'black',
-          'data': [],
-          'clicked': false,
-          'idx': null
-        },
-        {
-          'name': '嘉定区',
-          'color': 'orange',
-          'data': [],
-          'clicked': false,
-          'idx': null
-        },
-        {
           'name': '虹口区',
           'color': 'grey',
           'data': [],
@@ -123,6 +102,27 @@ export default {
         {
           'name': '闵行区',
           'color': 'purple',
+          'data': [],
+          'clicked': false,
+          'idx': null
+        },
+        {
+          'name': '杨浦区',
+          'color': 'Maroon',
+          'data': [],
+          'clicked': false,
+          'idx': null
+        },
+        {
+          'name': '黄浦区',
+          'color': 'black',
+          'data': [],
+          'clicked': false,
+          'idx': null
+        },
+        {
+          'name': '嘉定区',
+          'color': 'orange',
           'data': [],
           'clicked': false,
           'idx': null
