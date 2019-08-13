@@ -53,9 +53,9 @@
             <!-- <a class="navbar-item" href="/form/">
               表格
             </a> -->
-            <b-navbar-item tag="router-link" :to="{name: 'Index'}">
+            <!-- <b-navbar-item tag="router-link" :to="{name: 'Index'}">
               <a>主页</a>
-            </b-navbar-item>
+            </b-navbar-item> -->
             <b-navbar-item tag="router-link" :to="{name: 'RelatedPlaceMap'}">
               <a>马路相关城市地图</a>
             </b-navbar-item>
