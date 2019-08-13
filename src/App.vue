@@ -14,7 +14,7 @@
                 <div class="field has-addons">
                   <p class="control">
                     <b-autocomplete field="name" v-show="showSearch" v-model="keyword_name" :data="filterdRoadData"
-                                    :open-on-focus="true" placeholder="输入路名: e.g. 武康路"
+                                    :open-on-focus="true" placeholder="搜索: e.g. 武康路"
                                     @focus="getAutocomplateData" @select="option => selected = option" @keyup.enter.native="search">
                       <template slot-scope="props">
                         <div class="media">
@@ -194,15 +194,19 @@ export default {
             'type': 'road'
           },
           {
-            'name': '华山路',
-            'type': 'road'
-          },
-          {
             'name': '武康大楼',
             'type': 'architecture'
           },
           {
             'name': '淮海中路',
+            'type': 'road'
+          },
+          {
+            'name': '四川北路',
+            'type': 'road'
+          },
+          {
+            'name': '江西中路',
             'type': 'road'
           },
           {

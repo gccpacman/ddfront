@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="search-result-container">
-      <b-tabs expanded position="is-toggle" class="block">
+      <b-tabs v-model="activeTab" expanded position="is-toggle" class="block">
         <b-tab-item :label="road_result_count" icon="road" icon-pack="fas">
           <div class="container">
             <template v-for="roadItem in roadItemList">
@@ -15,7 +15,7 @@
                     <router-link :to="{name: 'Road', params: { id: roadItem._id }}">
                       <big><strong>{{ roadItem.name_chs }}</strong></big>
                     </router-link>
-                    <b-tag v-if="roadItem.road_architecture" type="is-warning"><b-icon pack="fas" icon="building" size="is-small"></b-icon> x {{roadItem.road_architecture.length }}</b-tag>
+                    <b-tag v-if="roadItem.road_architecture && roadItem.road_architecture.length > 0" type="is-warning" ><b-icon pack="fas" icon="building" size="is-small"></b-icon> x {{roadItem.road_architecture.length }}</b-tag>
                     <b-tag v-if="roadItem.place_name2" type="is-success">{{ roadItem.place_name2 }}</b-tag>
                     <p>
                       <span v-if="roadItem.des2">
@@ -88,7 +88,7 @@ export default {
       this.archItemList = []
       this.roadLoading = true
       this.archLoading = true
-      this.$axios.get(process.env.ROOT_API + '/roads/?search=' + searchKeyword).then((response) => {
+      this.$axios.get(process.env.ROOT_API + '/roads/?ordering=-road_architecture_count&search=' + searchKeyword).then((response) => {
         console.log(response.data)
         this.roadItemList = response.data.results
         this.roadLoading = false
@@ -117,6 +117,12 @@ export default {
     }
   },
   computed: {
+    activeTab () {
+      if (this.roadItemList.length === 0 && this.archItemList.length > 0) {
+        return 1
+      }
+      return 0
+    },
     road_result_count () {
       return '马路(' + this.roadItemList.length + ')'
     },
