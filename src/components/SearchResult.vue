@@ -44,7 +44,7 @@
                 <div class="media-left">
                   <!--                <b-icon pack="fas" icon="building" size="is-small"></b-icon>-->
                   <img v-if="archItem.first_image_path" :src="archItem.first_image_path" style="height: 100px; width: 100px"/>
-                  <img v-else src="@/assets/archnopic.jpg" style="height: 100px; width: 100px"/>
+                  <img v-else src="../assets/archnopic.jpg" style="height: 100px; width: 100px"/>
                 </div>
                 <div class="media-content">
                   <div class="content">
