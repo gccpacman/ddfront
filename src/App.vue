@@ -173,12 +173,7 @@ export default {
       }
     },
     search () {
-      if (!this.showSearch) {
-        this.showSearch = true
-      } else if (!this.keyword_name) {
-        console.log("keyword shouldn't be empty.")
-        // this.showSearch = false
-      } else if (this.$route.name !== 'Search') {
+      if (this.$route.name !== 'Search') {
         console.log(this.keyword_name)
         console.log(this.$router)
         this.$router.push({'name': 'Search'})

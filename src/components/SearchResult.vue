@@ -8,16 +8,20 @@
               <article class="media" v-bind:item="roadItem" v-bind:key="roadItem.id">
                 <div class="media-left">
                   <!--                <b-icon pack="fas" icon="road" size="is-small"></b-icon>-->
+
                 </div>
                 <div class="media-content">
                   <div class="content">
+                    <router-link :to="{name: 'Road', params: { id: roadItem._id }}">
+                      <big><strong>{{ roadItem.name_chs }}</strong></big>
+                    </router-link>
+                    <b-tag v-if="roadItem.road_architecture" type="is-warning"><b-icon pack="fas" icon="building" size="is-small"></b-icon> x {{roadItem.road_architecture.length }}</b-tag>
+                    <b-tag v-if="roadItem.place_name2" type="is-success">{{ roadItem.place_name2 }}</b-tag>
                     <p>
-                      <router-link :to="{name: 'Road', params: { id: roadItem.id }}">
-                        <strong>{{ roadItem.name }}</strong>
-                      </router-link>
-                      <small> {{ roadItem.place_name }}</small>
-                      <br>
-                      <small> {{ roadItem.des2 }} </small>
+                      <span v-if="roadItem.des2">
+                        <small v-if="roadItem.des2.length < 150"> {{ roadItem.des2 }} </small>
+                        <small v-else> {{ roadItem.des2.substring(0,148)+".." }} </small>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -39,16 +43,22 @@
               <article class="media" v-bind:item="archItem" v-bind:key="archItem.id">
                 <div class="media-left">
                   <!--                <b-icon pack="fas" icon="building" size="is-small"></b-icon>-->
+                  <img :src="archItem.first_image_path" style="height: 100px; width: 100px"/>
                 </div>
                 <div class="media-content">
                   <div class="content">
                     <p>
-                      <router-link :to="{name: 'Architecture', params: { id: archItem.id }}">
-                        <strong>{{ archItem.name }}</strong>
+                      <router-link :to="{name: 'Architecture', params: { id: archItem._id }}">
+                        <strong>{{ archItem.name_chs }}</strong>
                       </router-link>
-                      <small> {{ archItem.road_name}} - {{ archItem.place_name_str }}</small>
                       <br>
-                      <small> {{ archItem.des2 }} </small>
+                      <b-tag v-if="archItem.road_name_chs" type="is-primary">{{ archItem.road_name_chs }}</b-tag>
+                      <b-tag v-if="archItem.place_name_str" type="is-success">{{ archItem.place_name_str }}</b-tag>
+                      <br>
+                      <span v-if="archItem.des2">
+                        <small v-if="archItem.des2.length < 40"> {{ archItem.des2 }} </small>
+                        <small v-else> {{ archItem.des2.substring(0,38)+".." }} </small>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -80,47 +90,14 @@ export default {
       this.archLoading = true
       this.$axios.get(process.env.ROOT_API + '/roads/?search=' + searchKeyword).then((response) => {
         console.log(response.data)
-        var roadList = response.data.results
-        for (var i = 0; i < roadList.length; i++) {
-          var roadItem = roadList[i]
-          var roadDescription = ''
-          if (roadItem.des2 && roadItem.des2.length > 0) {
-            roadDescription = roadItem.des2.substring(0, 40) + ' ...'
-          } else if (roadItem.des) {
-            roadDescription = roadItem.des.substring(0, 40) + ' ...'
-          }
-          this.roadItemList.push({
-            'name': roadItem.name_chs,
-            'place_name': roadItem.place_name2,
-            'des2': roadDescription,
-            'type': 'road',
-            'id': roadItem._id
-          })
-        }
+        this.roadItemList = response.data.results
         this.roadLoading = false
       }).catch(function (error) {
         console.log(error)
       })
       this.$axios.get(process.env.ROOT_API + '/architectures/?search=' + searchKeyword).then((response) => {
         console.log(response.data)
-        var architectureList = response.data.results
-        for (var i = 0; i < architectureList.length; i++) {
-          var architectureItem = architectureList[i]
-          var architectureDescription = ''
-          if (architectureItem.des2 && architectureItem.des2.length > 0) {
-            architectureDescription = architectureItem.des2.substring(0, 40) + ' ...'
-          } else if (architectureItem.des) {
-            architectureDescription = architectureItem.des.substring(0, 40) + ' ...'
-          }
-          this.archItemList.push({
-            'name': architectureItem.name_chs,
-            'road_name': architectureItem.road_name_chs,
-            'place_name': architectureItem.place_name,
-            'des2': architectureDescription,
-            'type': 'architecture',
-            'id': architectureItem._id
-          })
-        }
+        this.archItemList = response.data.results
         this.archLoading = false
       }).catch(function (error) {
         console.log(error)

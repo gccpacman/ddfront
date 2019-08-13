@@ -25,7 +25,7 @@
               <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
               <template v-for="district in shanghaiDistrict">
                 <template v-for="road in district.data_view">
-                  <bm-boundary v-bind:item="road" v-bind:key="road.id" :name="road.related_place" :strokeWeight="1" :fillOpacity="0.2" :strokeColor="district.color" :fillColor="district.color">
+                  <bm-boundary v-bind:item="road" v-bind:key="road.id" :name="road.related_place" :strokeWeight="1" :fillOpacity="0.5" :strokeColor="district.color" :fillColor="district.color">
                   </bm-boundary>
                 </template>
               </template>
