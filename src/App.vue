@@ -6,7 +6,7 @@
         -->
           <template slot="brand">
             <b-navbar-item href="/">
-              <img src="http://bulma.io/images/bulma-logo.png" width="80px" height="auto" alt="Logo">
+              <img src="./assets/logo.png" width="40px" height="auto" alt="Logo">
             </b-navbar-item>
             <b-navbar-item tag="div">
               <div class="search-button-container" >
@@ -89,7 +89,8 @@
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <strong>@2018-2019</strong>上海图书馆开放数据竞赛作品<br/>
+            <strong>@2018-2019 名路焉知 </strong><br/>
+            <small>上海图书馆开放数据竞赛作品</small><br/>
             <small>ICP证：<a target="_blank" href="http://www.miitbeian.gov.cn">浙ICP备19022358号-1</a></small>
           </p>
         </div>
@@ -267,9 +268,12 @@ export default {
 //   background-image: url("./assets/bg_index.jpg");
 // }
 
-.search-button-container {
-  width: 190px;
+@media (max-width: 420px) {
+  .search-button-container {
+    width: 190px;
+  }
 }
+
 .search-button {
   border-width: 0px;
   background-color: #ffffff;
