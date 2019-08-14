@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-
-        <b-navbar>
+        <b-navbar type="is-light">
           <!--
         Using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
@@ -40,7 +39,7 @@
                     aria-role="list" hoverable>
                     <a slot="trigger"
                           role="button">
-                      <b-button @click="goArchMap">
+                      <b-button>
                         <b-icon
                         pack="fas"
                         icon="map-marked-alt"
@@ -51,9 +50,9 @@
                     </a>
                     <template v-for="(dataMap, idx) in dataMapList">
                       <b-dropdown-item has-link v-bind:key="idx" v-bind:item="dataMap" aria-role="listitem">
-                        <b-navbar-item tag="router-link" :to="{name: dataMap.route}">
+                        <router-link :to="{name: dataMap.route}">
                           <a>{{ dataMap.name }} </a>
-                        </b-navbar-item>
+                        </router-link>
                       </b-dropdown-item>
                     </template>
                   </b-dropdown>
@@ -61,26 +60,12 @@
               </div>
             </b-navbar-item>
           </template>
-
-          <template slot="start">
-            <!-- <b-navbar-item tag="router-link" :to="{name: 'Index'}">
-              <a>主页</a>
-            </b-navbar-item> -->
-            <b-navbar-item href="#">
-              <a>命名</a>
-            </b-navbar-item>
-            <b-navbar-item href="#">
-              <a>历史</a>
-            </b-navbar-item>
-            <b-navbar-item href="#">
-              <a>租界</a>
-            </b-navbar-item>
-            <b-navbar-item href="#">
-              <a>大上海</a>
-            </b-navbar-item>
-            <b-navbar-item href="#">
-              <a>H5</a>
-            </b-navbar-item>
+          <template slot="end">
+            <template v-for="(dataMap, idx) in docsMapList">
+              <b-navbar-item tag="router-link" :to="{name: dataMap.route}" v-bind:key="idx" v-bind:item="dataMap" style="text-align: left; font-size: 0.875rem; color: #4a4a4a;">
+                <a href="#"> {{ dataMap.name }} </a>
+              </b-navbar-item>
+            </template>
           </template>
             <!-- <a class="navbar-item" href="/">
               <img src="http://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Logo">
@@ -88,8 +73,8 @@
             <!--
         Using the v-on: directive to listen for the click event and toggle the data property showNav. Also, using the v-bind: directive to reactively update the class attribute 'is-active' based on the showNav property.
         -->
-          <template slot="end">
-          </template>
+<!--          <template slot="end">-->
+<!--          </template>-->
         </b-navbar>
       <section class="hero is-bold">
       <!-- Hero header: will stick at the top -->
@@ -136,6 +121,32 @@ export default {
   },
   data () {
     return {
+      docsMapList: [
+        {
+          'name': '命名',
+          'route': 'DistrictChart'
+        },
+        {
+          'name': '历史',
+          'route': 'History'
+        },
+        {
+          'name': '租界',
+          'route': 'Rent'
+        },
+        {
+          'name': '大上海',
+          'route': 'BigShanghai'
+        },
+        {
+          'name': '命名盘点',
+          'route': 'RoadNameDetail'
+        },
+        {
+          'name': '趣说路名',
+          'route': 'RoadNameFun'
+        }
+      ],
       dataMapList: [
         {
           'name': '优秀历史建筑地图',
@@ -148,10 +159,6 @@ export default {
         {
           'name': '马路相关城市地图',
           'route': 'RelatedPlaceMap'
-        },
-        {
-          'name': '马路命名来源饼图',
-          'route': 'DistrictChart'
         }
       ],
       showNav: false,
@@ -279,7 +286,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
 }
 .context-container-full {
   width: 100%;

@@ -1,14 +1,13 @@
 <template>
   <section>
     <div class="search-result-container">
-      <b-tabs v-model="activeTab" expanded position="is-toggle" class="block">
-        <b-tab-item :label="road_result_count" icon="road" icon-pack="fas">
+      <b-tabs expanded position="is-toggle" class="block">
+        <b-tab-item :label="'马路(' + roadItemCount + ')'" icon="road" icon-pack="fas">
           <div class="container">
             <template v-for="roadItem in roadItemList">
               <article class="media" v-bind:item="roadItem" v-bind:key="roadItem.id">
                 <div class="media-left">
                   <!--                <b-icon pack="fas" icon="road" size="is-small"></b-icon>-->
-
                 </div>
                 <div class="media-content">
                   <div class="content">
@@ -28,6 +27,21 @@
                 </div>
               </article>
             </template>
+            <div class="container" style="padding-top: 60px">
+              <b-pagination
+                :total="roadItemCount"
+                :current.sync="roadCurrent"
+                range-before="1"
+                range-after="1"
+                per-page="10"
+                order="is-centered"
+                aria-next-label="Next page"
+                aria-previous-label="Previous page"
+                aria-page-label="Page"
+                aria-current-label="Current page"
+                @change="roadPageChange">
+              </b-pagination>
+            </div>
           </div>
           <b-loading :is-full-page="false" :active.sync="roadLoading" :can-cancel="false">
             <b-icon
@@ -38,7 +52,7 @@
             </b-icon>
           </b-loading>
         </b-tab-item>
-        <b-tab-item :label="arch_result_count" icon="building" icon-pack="fas">
+        <b-tab-item :label="'建筑(' + archItemCount + ')'" icon="building" icon-pack="fas">
           <div>
             <template v-for="archItem in archItemList">
               <article class="media" v-bind:item="archItem" v-bind:key="archItem.id">
@@ -66,6 +80,21 @@
                 </div>
               </article>
             </template>
+            <div class="container" style="padding-top: 60px">
+              <b-pagination
+                :total="archItemCount"
+                :current.sync="archCurrent"
+                range-before="1"
+                range-after="1"
+                per-page="10"
+                order="is-centered"
+                aria-next-label="Next page"
+                aria-previous-label="Previous page"
+                aria-page-label="Page"
+                aria-current-label="Current page"
+                @change="archPageChange">
+              </b-pagination>
+            </div>
           </div>
           <b-loading :is-full-page="false" :active.sync="archLoading" :can-cancel="false">
             <b-icon
@@ -87,19 +116,49 @@ export default {
   methods: {
     onSearch (searchKeyword) {
       this.roadItemList = []
-      this.archItemList = []
+      this.roadCurrent = 1
       this.roadLoading = true
-      this.archLoading = true
       this.$axios.get(process.env.ROOT_API + '/roads/?ordering=-road_architecture_count&search=' + searchKeyword).then((response) => {
         console.log(response.data)
         this.roadItemList = response.data.results
+        this.roadItemCount = response.data.count
         this.roadLoading = false
       }).catch(function (error) {
         console.log(error)
       })
+      this.archItemList = []
+      this.archCurrent = 1
+      this.archLoading = true
       this.$axios.get(process.env.ROOT_API + '/architectures/?search=' + searchKeyword).then((response) => {
         console.log(response.data)
         this.archItemList = response.data.results
+        this.archItemCount = response.data.count
+        this.archLoading = false
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    roadPageChange (pageNumber) {
+      this.roadCurrent = pageNumber
+      this.roadItemList = []
+      this.roadLoading = true
+      this.$axios.get(process.env.ROOT_API + '/roads/?ordering=-road_architecture_count&search=' + this.$parent.keyword_name + '&page=' + this.roadCurrent).then((response) => {
+        console.log(response.data)
+        this.roadItemList = response.data.results
+        this.roadItemCount = response.data.count
+        this.roadLoading = false
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    archPageChange (pageNumber) {
+      this.archCurrent = pageNumber
+      this.archItemList = []
+      this.archLoading = true
+      this.$axios.get(process.env.ROOT_API + '/architectures/?search=' + this.$parent.keyword_name + '&page=' + this.archCurrent).then((response) => {
+        console.log(response.data)
+        this.archItemList = response.data.results
+        this.archItemCount = response.data.count
         this.archLoading = false
       }).catch(function (error) {
         console.log(error)
@@ -112,25 +171,17 @@ export default {
   data () {
     return {
       rootApi: process.env.ROOT_API,
-      roadLoading: false,
-      archLoading: false,
+      roadLoading: true,
+      roadCurrent: 1,
+      roadItemCount: 0,
       roadItemList: [],
+      archCurrent: 1,
+      archLoading: true,
+      archItemCount: 0,
       archItemList: []
     }
   },
   computed: {
-    activeTab () {
-      if (this.roadItemList.length === 0 && this.archItemList.length > 0) {
-        return 1
-      }
-      return 0
-    },
-    road_result_count () {
-      return '马路(' + this.roadItemList.length + ')'
-    },
-    arch_result_count () {
-      return '建筑(' + this.archItemList.length + ')'
-    }
   }
 }
 </script>
