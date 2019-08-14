@@ -11,6 +11,7 @@ import Router from 'vue-router'
 import Road from '@/components/Road'
 import Architecture from '@/components/Architecture'
 import History from '@/components/History'
+import Rent from '@/components/Rent'
 import Index from '@/components/Index'
 import SearchResult from '@/components/SearchResult'
 import ArchitectureMap from '@/components/ArchitectureMap'
@@ -66,6 +67,11 @@ export default new Router({
       path: '/history',
       name: 'History',
       component: History
+    },
+    {
+      path: '/rent',
+      name: 'Rent',
+      component: Rent
     }
     // ,
     // {
