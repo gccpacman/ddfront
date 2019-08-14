@@ -11,6 +11,9 @@ import Router from 'vue-router'
 import Road from '@/components/Road'
 import Architecture from '@/components/Architecture'
 import History from '@/components/History'
+import BigShanghai from '@/components/BigShanghai'
+import RoadNameDetail from '@/components/RoadNameDetail'
+import RoadNameFun from '@/components/RoadNameFun'
 import Rent from '@/components/Rent'
 import Index from '@/components/Index'
 import SearchResult from '@/components/SearchResult'
@@ -72,6 +75,21 @@ export default new Router({
       path: '/rent',
       name: 'Rent',
       component: Rent
+    },
+    {
+      path: '/bigshanghai',
+      name: 'BigShanghai',
+      component: BigShanghai
+    },
+    {
+      path: '/roadnamedetail',
+      name: 'RoadNameDetail',
+      component: RoadNameDetail
+    },
+    {
+      path: '/roadnamefun',
+      name: 'RoadNameFun',
+      component: RoadNameFun
     }
     // ,
     // {

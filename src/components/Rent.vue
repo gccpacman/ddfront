@@ -142,7 +142,6 @@
       [3] 第四届：越界筑路地区（上）——愚园路拾零之一
     </p>
     <p>
-      http://xmwb.xinmin.cn/html/201906/14/content_21_2.htm
     </p>
   </article>
 </template>
