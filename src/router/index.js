@@ -10,6 +10,7 @@ import Router from 'vue-router'
 // import EChartsRoadDemo from '@/components/EChartsRoadDemo'
 import Road from '@/components/Road'
 import Architecture from '@/components/Architecture'
+import History from '@/components/History'
 import Index from '@/components/Index'
 import SearchResult from '@/components/SearchResult'
 import ArchitectureMap from '@/components/ArchitectureMap'
@@ -60,6 +61,11 @@ export default new Router({
       path: '/architecture/:id',
       name: 'Architecture',
       component: Architecture
+    },
+    {
+      path: '/history',
+      name: 'History',
+      component: History
     }
     // ,
     // {
