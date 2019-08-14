@@ -35,39 +35,37 @@
                       </b-icon>
                     </b-button>
                   </p>
-                  <p class="control">
-                    <b-button @click="goArchMap">
-                      <b-icon
-                      pack="fas"
-                      icon="map-marked-alt"
-                      size="is-big">
-                      </b-icon>
-                    </b-button>
-                  </p>
+                  <b-dropdown
+                    position="is-bottom-left"
+                    aria-role="list" hoverable>
+                    <a slot="trigger"
+                          role="button">
+                      <b-button @click="goArchMap">
+                        <b-icon
+                        pack="fas"
+                        icon="map-marked-alt"
+                        size="is-big">
+                        </b-icon>
+                        <b-icon icon="angle-down" pack="fas" size="is-small"></b-icon>
+                      </b-button>
+                    </a>
+                    <template v-for="(dataMap, idx) in dataMapList">
+                      <b-dropdown-item has-link v-bind:key="idx" v-bind:item="dataMap" aria-role="listitem">
+                        <b-navbar-item tag="router-link" :to="{name: dataMap.route}">
+                          <a>{{ dataMap.name }} </a>
+                        </b-navbar-item>
+                      </b-dropdown-item>
+                    </template>
+                  </b-dropdown>
                 </div>
               </div>
             </b-navbar-item>
           </template>
 
           <template slot="start">
-            <!-- <a class="navbar-item" href="/form/">
-              表格
-            </a> -->
             <!-- <b-navbar-item tag="router-link" :to="{name: 'Index'}">
               <a>主页</a>
             </b-navbar-item> -->
-            <b-navbar-item tag="router-link" :to="{name: 'RelatedPlaceMap'}">
-              <a>马路相关城市地图</a>
-            </b-navbar-item>
-            <b-navbar-item tag="router-link" :to="{name: 'ArchitecuteMap'}">
-              <a>优秀历史建筑地图</a>
-            </b-navbar-item>
-            <b-navbar-item tag="router-link" :to="{name: 'RelatedPlaceSankey'}">
-              <a>马路相关省份桑基图</a>
-            </b-navbar-item>
-            <b-navbar-item tag="router-link" :to="{name: 'DistrictChart'}">
-              <a>各区马路命名来源饼图</a>
-            </b-navbar-item>
             <b-navbar-item href="#">
               <a>命名</a>
             </b-navbar-item>
@@ -138,6 +136,24 @@ export default {
   },
   data () {
     return {
+      dataMapList: [
+        {
+          'name': '优秀历史建筑地图',
+          'route': 'ArchitecuteMap'
+        },
+        {
+          'name': '马路相关省份桑基图',
+          'route': 'RelatedPlaceSankey'
+        },
+        {
+          'name': '马路相关城市地图',
+          'route': 'RelatedPlaceMap'
+        },
+        {
+          'name': '马路命名来源饼图',
+          'route': 'DistrictChart'
+        }
+      ],
       showNav: false,
       showSearch: true,
       keyword_name: '',

@@ -5,7 +5,9 @@
         <ul>
           <li>
             <a href="#">
-              <b-icon size="is-small" icon="map-marker" pack="fas" ></b-icon> {{ road.place_name2 }}
+              <b-icon size="is-small" icon="map-marker" pack="fas" ></b-icon>
+              <span v-if="road.place_name2">{{ road.place_name2 }}</span>
+              <span v-else-if="road.place_name">{{ road.place_name }}</span>
             </a>
           </li>
           <li class="is-active">

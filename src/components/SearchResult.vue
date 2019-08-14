@@ -17,6 +17,7 @@
                     </router-link>
                     <b-tag v-if="roadItem.road_architecture && roadItem.road_architecture.length > 0" type="is-warning" ><b-icon pack="fas" icon="building" size="is-small"></b-icon> x {{roadItem.road_architecture.length }}</b-tag>
                     <b-tag v-if="roadItem.place_name2" type="is-success">{{ roadItem.place_name2 }}</b-tag>
+                    <b-tag v-else-if="roadItem.place_name" type="is-success">{{ roadItem.place_name }}</b-tag>
                     <p>
                       <span v-if="roadItem.des2">
                         <small v-if="roadItem.des2.length < 150"> {{ roadItem.des2 }} </small>
