@@ -3,7 +3,7 @@
     <div class="container" style="text-align: left;">
       <article>
         <p style="text-align: center;">
-          &gt;&gt;&gt;<strong>命名规则</strong>&lt;&lt;&lt;
+          <strong>命名规则</strong>
         </p>
         <p>
           每一条道路，都有它自己名字。像一个生命，有它的延续性。然而，给一座城市的每一条道路命名，不是一件简单的事情。
@@ -18,7 +18,7 @@
           />
         </p>
         <p style="text-align: center;">
-          &gt;&gt;&gt;<strong>地名</strong>&lt;&lt;&lt;
+          <strong>地名</strong>
         </p>
         <p>
           为更方便记忆和利于管理，在英国领事麦特赫司脱的建议下，1862年，工部局重新命名英租界的马路，    <strong>南北向以中国省级地名命名，东西向则以中国城市地名命名</strong>。
@@ -57,7 +57,7 @@
           />
         </p>
         <p style="text-align: center;">
-          &gt;&gt;&gt;<strong>人名</strong>&lt;&lt;&lt;
+          <strong>人名</strong>
         </p>
         <p>
           随着上海城区范围的扩展，新增的大小马路不计其数，全国各地现有的地名，大多都已被用来命名，于是    <strong>浦东张江高科技发展园区新建的道路，路名采用中外科学家的名字</strong>。且大致遵循以下的规律：
@@ -83,7 +83,7 @@
           厦门大学传播学教授邹振东分析，《延禧攻略》的爆红原因是它满足了人们最迫切的心理：
         </p>
         <p style="text-align: center;">
-          &gt;&gt;&gt;<strong>其他</strong>&lt;&lt;&lt;
+          <strong>其他</strong>
         </p>
         <p>
           后来，闵行区出现了以植物的名字来命名的道路，如紫薇、银杏、黄桦、紫藤、百合花……长宁古北新区则以红宝石，蓝宝石，玛瑙……等名之。
@@ -95,7 +95,7 @@
           除去地名，上海市区还出现了一些以人名、植物、山川湖海、建筑物等命名的马路。（如上图示）
         </p>
         <p style="text-align: center;">
-          &gt;&gt;&gt;<strong>新特点</strong>&lt;&lt;&lt;
+          <strong>新特点</strong>
         </p>
         <p>
           越来越多的马路，成为上海城市面貌大变样的标志之一，也呈现出了两个显著特点：

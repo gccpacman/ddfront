@@ -62,10 +62,22 @@
           </template>
           <template slot="end">
             <template v-for="(dataMap, idx) in docsMapList">
-              <b-navbar-item tag="router-link" :to="{name: dataMap.route}" v-bind:key="idx" v-bind:item="dataMap" style="text-align: left; font-size: 0.875rem; color: #4a4a4a;">
-                <a href="#"> {{ dataMap.name }} </a>
+              <b-navbar-item tag="router-link" :to="{name: dataMap.route}" v-bind:key="idx" v-bind:item="dataMap">
+                <a href="#"> <b-icon icon="file-alt" pack="fas"></b-icon> {{ dataMap.name }} </a>
               </b-navbar-item>
             </template>
+            <b-navbar-item>
+              <a href="https://commecnu.epub360.com.cn/v2/manage/book/kmlas3/" target="_blank">
+                <b-icon icon="html5" pack="fab"></b-icon>
+                上海十二时辰
+              </a>
+            </b-navbar-item>
+            <b-navbar-item>
+              <a href="https://commecnu.epub360.com.cn/v2/manage/book/0qrgnq/" target="_blank">
+                <b-icon icon="html5" pack="fab"></b-icon>
+                寻觅梧桐深处
+              </a>
+            </b-navbar-item>
           </template>
             <!-- <a class="navbar-item" href="/">
               <img src="http://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Logo">
@@ -124,28 +136,24 @@ export default {
     return {
       docsMapList: [
         {
-          'name': '命名',
+          'name': '命名规则',
           'route': 'DistrictChart'
         },
         {
-          'name': '历史',
+          'name': '历史探路',
           'route': 'History'
         },
         {
-          'name': '租界',
+          'name': '租界寻踪',
           'route': 'Rent'
         },
         {
-          'name': '大上海',
-          'route': 'BigShanghai'
-        },
-        {
-          'name': '命名盘点',
+          'name': '趣说路名',
           'route': 'RoadNameDetail'
         },
         {
-          'name': '趣说路名',
-          'route': 'RoadNameFun'
+          'name': '走进大上海计划',
+          'route': 'BigShanghai'
         }
       ],
       dataMapList: [

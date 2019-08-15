@@ -153,12 +153,12 @@
         [1] 魏枢.《大上海计划》启示录——近代上海华界都市中心空间形态的流变[D].上海:同济大学,2007.
       </p>
       <p>
-        [2] 网易新闻.“大上海都市计划”做了哪些规划？
-        http://news.163.com/14/0626/09/9VLGPILV00014AED.html
+        [2] <a href="http://news.163.com/14/0626/09/9VLGPILV00014AED.html" target="_blank">网易新闻.“大上海都市计划”做了哪些规划？</a>
       </p>
       <p>
-        [3]
-        上观.“大上海都市计划”：1946年的现代大都市之梦为何至今充满魅力？https://www.jfdaily.com/news/detail?id=52779
+        [3] <a href="https://www.jfdaily.com/news/detail?id=52779" target="_blank">
+            上观.“大上海都市计划”：1946年的现代大都市之梦为何至今充满魅力？
+          </a>
       </p>
       <p>
         《大上海计划》先后完成了的项目有：

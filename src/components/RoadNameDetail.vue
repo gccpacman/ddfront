@@ -1,10 +1,8 @@
 <template>
   <div class="container">
     <article style="text-align: left;">
-      <p>
-        <strong>上海路名之“</strong>
-        <strong>最” </strong>
-        <strong>盘点 </strong>
+      <p style="text-align: center;">
+        <strong>上海路名之“最” 盘点 </strong>
       </p>
       <p align="left">
         <img
@@ -12,28 +10,16 @@
           src="../assets/shanghairoaddetail/1.jpg"
         />
       </p>
-      <p>
+      <p style="text-align: center;">
         非官方
       </p>
-      <p>
+      <p style="text-align: center;">
         不正经统计
-      </p>
-      <p>
-        固定布局
-        <br/>
-        工具条上设置固定宽高
-        <br/>
-        背景可以设置被包含
-        <br/>
-        可以完美对齐背景图和文字
-        <br/>
-        以及制作自己的模板
       </p>
       <img
         width="100%"
         src="../assets/shanghairoaddetail/2.jpg"
       />
-      </p>
       <p>
         <strong> </strong>
         <strong>最浪漫的路：甜爱路</strong>
@@ -226,7 +212,6 @@
       <p>
       <p align="left">
       </p>
-      </p>
       <p>
         关于最短马路的说法，坊间众说纷纭。
       </p>
@@ -248,7 +233,6 @@
           src="../assets/shanghairoaddetail/15.jpg"
         />
       </p>
-      </p>
       <p>
         <strong> </strong>
         <strong>最北派的路名：大胜胡同</strong>
@@ -256,7 +240,6 @@
       <p>
       <p align="left">
 
-      </p>
       </p>
       <p>
         在上海，小街巷称为“弄堂”，在北京称为“胡同”。但是，也有例外！静安有块地方就被称为“大胜胡同”。
@@ -269,7 +252,6 @@
           width="100%"
           src="../assets/shanghairoaddetail/16.jpg"
         />
-      </p>
       </p>
       <p>
         <strong>上海路程最长的马路：沪太路</strong>
@@ -346,10 +328,7 @@
         黎明路位于闵行区，靠近外环高速。不知道在这条路上骑单车会不会更加“甜蜜蜜”呢？
       </p>
       <p align="left">
-        <img
-          width="100%"
-          src="../assets/shanghairoaddetail/21.jpg"
-        />
+
       </p>
       <p>
         四大天王就差张学友了！学友不哭~你还有各种食品店啊、文具店啊、服务社啊……
@@ -444,10 +423,7 @@
         说到这，是不是有点口渴？换种姿势，咱们接着盘点！
       </p>
       <p align="left">
-        <img
-          width="100%"
-          src="../assets/shanghairoaddetail/27.jpg"
-        />
+
       </p>
       <p>
         <strong> </strong>
@@ -585,10 +561,7 @@
         无独有偶，闵行区有条雅致路，看路名顿时觉得整条街都蛮高雅的！但你用上海话念念看，瞬间变成了“野猪猡”......
       </p>
       <p align="left">
-        <img
-          width="100%"
-          src="../assets/shanghairoaddetail/40.jpg"
-        />
+
       </p>
       <p>
         如今，闵行雅致路已顺应民心，改名为“开心路”，这下应该不会产生什么误会了吧。
@@ -690,13 +663,10 @@
     </article>
   </div>
 </template>
-
 <script>
-  export default {
-    name: 'RoadNameDetail'
-  }
+export default {
+  name: 'RoadNameDetail'
+}
 </script>
-
 <style scoped>
-
 </style>

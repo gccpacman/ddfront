@@ -13,6 +13,15 @@
         <img src="../assets/index3.jpg">
       </a>
     </div>
+    <div class="container box">
+      <article>
+        <span>特别鸣谢:
+          <br>
+        <b-icon color="red" icon="weibo" pack="fab" size=""></b-icon>&nbsp;高参88
+          &nbsp; &nbsp; &nbsp;
+        <b-icon icon="weibo" pack="fab" size=""></b-icon>&nbsp;rabbit_3922 </span>
+      </article>
+    </div>
   </section>
 </template>
 
