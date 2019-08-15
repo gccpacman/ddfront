@@ -1,29 +1,18 @@
 <template>
   <section>
     <div class="container container-index">
-      <img src="@/assets/main.png">
+      <img src="../assets/index1.jpg">
     </div>
-    <!-- <div class="columns is-mobile">
-      <div class="column is-half">
-      </div>
-      <div class="column is-half">
-        图片一
-      </div>
+    <div class="container container-index">
+      <a href="https://commecnu.epub360.com.cn/v2/manage/book/kmlas3/"  target="_blank">
+        <img src="../assets/index2.jpg">
+      </a>
     </div>
-    <div class="columns is-mobile">
-      <div class="column is-half">
-        图片二
-      </div>
-      <div class="column is-half">
-      </div>
+    <div class="container container-index">
+      <a href="https://commecnu.epub360.com.cn/v2/manage/book/0qrgnq/" target="_blank">
+        <img src="../assets/index3.jpg">
+      </a>
     </div>
-    <div class="columns is-mobile">
-      <div class="column is-half">
-      </div>
-      <div class="column is-half">
-        图片三
-      </div>
-    </div> -->
   </section>
 </template>
 
