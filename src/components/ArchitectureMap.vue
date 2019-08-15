@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-    <section class="container box" columns>
+    <section class="container" columns>
       <h1 class="subtitle">
         上海市优秀历史建筑
       </h1>

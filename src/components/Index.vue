@@ -17,9 +17,10 @@
       <article>
         <span>特别鸣谢:
           <br>
-        <b-icon color="red" icon="weibo" pack="fab" size=""></b-icon>&nbsp;高参88
+          <b-icon color="red" icon="weibo" pack="fab" size=""></b-icon>&nbsp;<a href="http://blog.sina.com.cn/gaocan88888" target="_blank" class="tks_a">高参88</a>
           &nbsp; &nbsp; &nbsp;
-        <b-icon icon="weibo" pack="fab" size=""></b-icon>&nbsp;rabbit_3922 </span>
+          <b-icon icon="weibo" pack="fab" size=""></b-icon>&nbsp;<a href="http://blog.sina.com.cn/gzhang524" target="_blank" class="tks_a">rabbit_3922 </a>
+        </span>
       </article>
     </div>
   </section>
@@ -41,6 +42,10 @@ export default {
 
 <style scoped>
   .container-index {
-    max-width: 690px
+    max-width: 690px;
+    padding-bottom: 90px;
+  }
+  .tks_a {
+    color: black;
   }
 </style>

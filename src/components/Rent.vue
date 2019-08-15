@@ -1,5 +1,5 @@
 <template>
-  <article class="container" style="text-align: left;">
+  <article class="container context-container" style="text-align: left;">
     <h1 align="center">
       <strong>上海租界变迁史</strong>
     </h1>

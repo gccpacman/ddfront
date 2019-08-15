@@ -101,7 +101,7 @@
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <strong>@2018-2019 名路焉知 </strong><br/>
+            <strong>@2018-2019 路名焉识，寻物影踪 </strong><br/>
             <small>上海图书馆开放数据竞赛作品</small><br/>
             <small>ICP证：<a target="_blank" href="http://www.miitbeian.gov.cn">浙ICP备19022358号-1</a></small>
           </p>
@@ -148,12 +148,12 @@ export default {
           'route': 'Rent'
         },
         {
-          'name': '趣说路名',
-          'route': 'RoadNameDetail'
+          'name': '走过民国',
+          'route': 'BigShanghai'
         },
         {
-          'name': '走进大上海计划',
-          'route': 'BigShanghai'
+          'name': '趣说路名',
+          'route': 'RoadNameDetail'
         }
       ],
       dataMapList: [

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container context-container">
     <article style="text-align: left;">
       <p align="center">
         <strong>上海路名趣事</strong>

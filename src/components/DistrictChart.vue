@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-    <div class="container" style="text-align: left;">
+    <div class="container context-container" style="text-align: left;">
       <article>
         <p style="text-align: center;">
           <strong>命名规则</strong>
@@ -89,8 +89,9 @@
           后来，闵行区出现了以植物的名字来命名的道路，如紫薇、银杏、黄桦、紫藤、百合花……长宁古北新区则以红宝石，蓝宝石，玛瑙……等名之。
         </p>
         <p>
-          （此处插入Echart 动图）
-        </p>
+        <div class="container">
+          <div ref='chart' id='chart'></div>
+        </div>
         <p>
           除去地名，上海市区还出现了一些以人名、植物、山川湖海、建筑物等命名的马路。（如上图示）
         </p>
@@ -104,9 +105,6 @@
           一是随着宝山区、嘉定区、闵行区、浦东新区、松江区等新建区的设置，市区道路由老城区向新城区扩展；二是随着内环高架路、南北高架路的兴建，市区道路由地面向空中发展。
         </p>
       </article>
-    </div>
-    <div class="container">
-      <div ref='chart' id='chart'></div>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-      <section class="container box">
+      <section class="container">
         <h1 class="subtitle">
           上海市路名关联的全国城市
         </h1>
