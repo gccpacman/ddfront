@@ -113,7 +113,7 @@
     <p align="center">
       <img
         width="100%"
-        src="../assets/rent/1.jpg"
+        src="../assets/rent/3.jpg"
       />
     </p>
     <p>
