@@ -102,7 +102,6 @@
         <div class="content has-text-centered">
           <p>
             <strong>@2018-2019 路名焉识，寻物影踪 </strong><br/>
-            <small>上海图书馆开放数据竞赛作品</small><br/>
             <small>ICP证：<a target="_blank" href="http://www.miitbeian.gov.cn">浙ICP备19022358号-1</a></small>
           </p>
         </div>
