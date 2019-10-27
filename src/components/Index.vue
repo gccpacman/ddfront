@@ -18,7 +18,7 @@
         <span><b>特别鸣谢:</b>
           <br>
           <b-icon color="red" icon="weibo" pack="fab" size=""></b-icon>&nbsp;<a href="http://blog.sina.com.cn/gaocan88888" target="_blank" class="tks_a">高参88</a>
-          &nbsp; &nbsp; &nbsp;&nbsp; 
+          &nbsp; &nbsp; &nbsp;&nbsp;
           <b-icon icon="weibo" pack="fab" size=""></b-icon>&nbsp;<a href="http://blog.sina.com.cn/gzhang524" target="_blank" class="tks_a">rabbit_3922 </a>
                     <br>
           <b-icon icon="weixin" pack="fab" size=""></b-icon>&nbsp;<a href="" target="_blank" class="tks_a">华东师范大学智慧与创意融媒体中心 </a>
