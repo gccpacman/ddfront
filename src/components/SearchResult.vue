@@ -118,7 +118,7 @@ export default {
       this.roadItemList = []
       this.roadCurrent = 1
       this.roadLoading = true
-      this.$axios.get(process.env.ROOT_API + '/roads/?ordering=-road_architecture_count&search=' + searchKeyword).then((response) => {
+      this.$axios.get(process.env.ROOT_API + '/roads/?search=' + searchKeyword).then((response) => {
         console.log(response.data)
         this.roadItemList = response.data.results
         this.roadItemCount = response.data.count
