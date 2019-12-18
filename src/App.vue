@@ -101,8 +101,11 @@
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <strong>@2018-2019 路名焉识，寻物影踪 </strong><br/>
-            <small>ICP证：<a target="_blank" href="http://www.miitbeian.gov.cn">浙ICP备19022358号-1</a></small>
+            2018-2019 路名焉识，寻物影踪 <br />
+            开放数据竞赛参赛作品展示 <br />
+          </p>
+          <p>
+            <a href="http://www.beian.miit.gov.cn/">浙ICP备19022358号-1</a>
           </p>
         </div>
       </footer>
