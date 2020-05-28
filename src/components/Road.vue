@@ -25,7 +25,7 @@
                 ...
                 <b-icon icon="angle-down" pack="fas" ></b-icon>
               </a>
-              <template v-for="archItem in road.road_architecture">
+              <template v-for="archItem in road.architectures_list">
                 <b-dropdown-item has-link v-bind:key="archItem._id" v-bind:item="archItem" aria-role="listitem" @click="clickArchItem(archItem._id)">
                   <b-icon size="is-small" icon="building" pack="fas" ></b-icon>
                   {{ archItem.name_chs }}
@@ -101,10 +101,10 @@ export default {
     console.log('hello road')
     this.$axios.get(process.env.ROOT_API + '/road/' + this.$route.params.id).then((response) => {
       this.road = response.data
-      if (Object.entries(response.data.center_bmap).length !== 0 || response.data.center_bmap.constructor !== Object) {
+      if (Object.entries(response.data.polylines.center_bmap).length !== 0 || response.data.polylines.center_bmap.constructor !== Object) {
         this.has_map = true
-        bmapOptions['bmap']['center'] = [response.data.center_bmap.lng, response.data.center_bmap.lat]
-        var roadPolylineList = response.data.polylines_bmap
+        bmapOptions['bmap']['center'] = [response.data.polylines.center_bmap.lng, response.data.polylines.center_bmap.lat]
+        var roadPolylineList = response.data.polylines.polylines_bmap
         for (var i = 0; i < roadPolylineList.length; i++) {
           var polyline = []
           for (var j = 0; j < roadPolylineList[i].length; j++) {
@@ -133,7 +133,7 @@ export default {
             }]
           })
         }
-        var archItems = response.data.road_architecture
+        var archItems = response.data.architectures_list
         var archList = []
         if (archItems && archItems.length > 0) {
           for (var k = 0; k < archItems.length; k++) {
