@@ -140,7 +140,6 @@ export default {
             archList.push({
               'id': archItems[k]._id,
               'name': archItems[k].name_chs,
-              'des2': archItems[k].des_html,
               'value': [archItems[k].longitude, archItems[k].latitude]
             })
           }
